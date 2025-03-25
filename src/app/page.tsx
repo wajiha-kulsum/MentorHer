@@ -2,15 +2,26 @@
 import React from 'react';
 import Gradient from '@/myComponents/Gradient';
 import Hero from '@/myComponents/Hero';
+import Contact from '@/myComponents/Contact';
 
 
 const Index = () => {
   return (
+    <>
     <div>
         <Gradient/>
-        <Hero/>
-      
     </div>
+
+    <div>
+        <Hero/>
+    </div>
+
+    <div>
+      <Contact/>
+    </div>
+
+
+    </>
   );
 };
 

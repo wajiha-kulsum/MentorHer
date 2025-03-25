@@ -1,92 +1,107 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Database, Code, Cpu, Lock, Share2, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, HeartHandshake, GraduationCap, Users, Shield, Sparkles, Globe } from "lucide-react";
 import Link from "next/link";
 
 const features = [
   {
-    icon: <Database className="w-8 h-8" />,
-    title: "Data Integration",
-    description: "Seamlessly connect with all your data sources"
+    icon: <HeartHandshake className="w-10 h-10 text-pink-700" />,
+    title: "Mentor Matching",
+    description: "Find your perfect mentor based on shared interests and goals",
+    color: "from-rose-100 to-pink-200"
   },
   {
-    icon: <Code className="w-8 h-8" />,
-    title: "Auto Generation",
-    description: "Instant code generation from your data models"
+    icon: <GraduationCap className="w-10 h-10 text-purple-700" />,
+    title: "Skill Development",
+    description: "Personalized learning paths for professional growth",
+    color: "from-violet-100 to-purple-200"
   },
   {
-    icon: <Cpu className="w-8 h-8" />,
-    title: "AI Processing",
-    description: "Smart algorithms optimize your solutions"
+    icon: <Users className="w-10 h-10 text-teal-700" />,
+    title: "Community Support",
+    description: "Connect with like-minded women in your field",
+    color: "from-teal-100 to-cyan-200"
   },
   {
-    icon: <Lock className="w-8 h-8" />,
-    title: "Enterprise Security",
-    description: "Bank-grade encryption for all your data"
+    icon: <Shield className="w-10 h-10 text-indigo-700" />,
+    title: "Safe Space",
+    description: "A judgment-free environment for open discussions",
+    color: "from-indigo-100 to-blue-200"
   },
   {
-    icon: <Share2 className="w-8 h-8" />,
-    title: "Collaboration",
-    description: "Real-time team collaboration features"
+    icon: <Sparkles className="w-10 h-10 text-amber-700" />,
+    title: "Career Growth",
+    description: "Guidance for promotions and career transitions",
+    color: "from-amber-100 to-yellow-200"
   },
   {
-    icon: <Zap className="w-8 h-8" />,
-    title: "Performance",
-    description: "Lightning fast execution speeds"
+    icon: <Globe className="w-10 h-10 text-emerald-700" />,
+    title: "Global Network",
+    description: "Connect with mentors worldwide",
+    color: "from-emerald-100 to-green-200"
   }
 ];
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen overflow-hidden flex items-center justify-center">
-      {/* Expanded Background Tint */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-blue-500/20"></div>
-      
-      {/* Large Blurry Donut Base */}
-      <div className="absolute top-1/2 left-1/2 w-[1200px] h-[1200px] bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-[100px] opacity-20 transform -translate-x-1/2 -translate-y-1/2"></div>
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-rose-50">
+      {/* Soft Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-16 left-10 w-96 h-96 rounded-full bg-pink-300 blur-3xl"></div>
+        <div className="absolute bottom-16 right-10 w-96 h-96 rounded-full bg-purple-300 blur-3xl"></div>
+      </div>
 
-      {/* Glassmorphic Container - Edge to Edge */}
-      <div className="absolute w-full h-full px-2 sm:px-4 flex flex-col items-center justify-center">
-        <div className="w-full max-w-[1800px] mx-auto">
-          {/* Feature Cards Grid - Full Width */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-0">
-            {features.map((feature, index) => (
-              <div 
-                key={index}
-                className="group relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:-translate-y-2 mx-1"
-              >
-                <div className="flex flex-col items-start space-y-4">
-                  <div className="p-3 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {feature.description}
-                  </p>
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <ArrowRight className="w-5 h-5 text-blue-600" />
-                  </div>
+      {/* Main Content */}
+      <div className="relative w-full max-w-[1600px] mx-auto px-6 py-24 flex flex-col">
+        {/* Section Heading */}
+        <div className="text-left md:text-center mb-12">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900">
+            <span className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+              Empower Your Journey
+            </span>
+          </h2>
+          <p className="text-2xl text-gray-700 max-w-2xl mx-auto mt-3">
+            Where women leaders mentor the next generation of professionals.
+          </p>
+        </div>
+
+        {/* Feature Cards - Left & Right Alignment */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-0">
+          {features.map((feature, index) => (
+            <div 
+              key={index}
+              className={`group relative rounded-2xl p-6 h-[260px] transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br ${feature.color}`}
+              style={{
+                backdropFilter: 'blur(14px)',
+                boxShadow: `
+                  0 4px 30px rgba(0, 0, 0, 0.06),
+                  inset 2px 2px 6px rgba(255, 255, 255, 0.7)
+                `,
+                border: '1px solid rgba(255, 255, 255, 0.4)'
+              }}
+            >
+              <div className="absolute inset-0 rounded-2xl bg-white/20 backdrop-blur-sm"></div>
+              
+              <div className="relative flex flex-col items-start space-y-4">
+                <div className={`p-4 rounded-xl bg-white/30 backdrop-blur-sm group-hover:bg-white/40 transition-colors duration-300`}>
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-semibold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-700 text-lg">
+                  {feature.description}
+                </p>
+                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ArrowRight className="w-6 h-6 text-pink-600" />
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* CTA Button */}
-          <div className="flex justify-center mt-10 px-4">
-            <Button asChild className="rounded-full text-md py-6 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1">
-              <Link href="/signup">
-                <span className="flex items-center gap-2 font-semibold">
-                  Get Started Now
-                  <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-              </Link>
-            </Button>
-          </div>
+            </div>
+          ))}
         </div>
+
+        {/* CTA Button Removed as Requested */}
       </div>
     </section>
   );
