@@ -6,6 +6,7 @@ import { dbConnect } from '@/lib/mongodb';
 import Message from '@/models/Message';
 import Group from '@/models/Group';
 import mongoose from 'mongoose';
+import UserProfileModel from '@/models/userProfile';
 
 export async function GET(req: NextRequest) {
   await dbConnect();

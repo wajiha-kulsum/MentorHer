@@ -97,23 +97,8 @@ export default function UserList() {
             <p className="font-medium">{user.username}</p>
           </div>
           <Button onClick={() => handleVideoCall(user._id)}>Video Call</Button>
-          <Button
-            className="bg-gradient-to-r from-[#10A881] to-[#1BCA9B] text-white font-semibold hover:from-[#1BCA9B] hover:to-[#53E0BC] transition-all duration-300"
-            size="sm"
-            onClick={() => handleFollow(user._id)}
-          >
-            <UserPlus className="h-4 w-4 mr-1" />
-            Follow
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-[#53E0BC] text-[#10A881] hover:bg-[#E8FFF7] hover:text-[#1BCA9B] transition-all duration-300"
-            onClick={() => handleViewProfile(user._id)}
-          >
-            <UserPlus className="h-4 w-4 mr-1" />
-            Profile
-          </Button>
+      
+      
           <Link href={`/chat/${user._id}`}>
             <Button
               variant="outline"
@@ -124,11 +109,7 @@ export default function UserList() {
             </Button>
           </Link>
           <div className="flex gap-2">
-  <Link href="/create-group">
-    <Button variant="outline">
-      Create Group
-    </Button>
-  </Link>
+
   {/* Existing buttons */}
 </div>
         </div>

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 
 const RoomPage: React.FC = () => {
-  // useParams from next/navigation returns an object with your route parameters.
   const { RoomId } = useParams();
   const [userId, setUserId] = useState("");
   const [username, setUserName] = useState("");
@@ -19,7 +18,10 @@ const RoomPage: React.FC = () => {
         const data = await response.json();
         console.log("User data fetched:", data);
         setUserId(data._id);
-        setUserName(data.username);
+        // Use fallback if username not provided
+        const fetchedUsername = data.username || data.userName || "TestUser";
+        console.log("Using username:", fetchedUsername);
+        setUserName(fetchedUsername);
       } catch (error) {
         console.error("Failed to fetch user data", error);
       }
@@ -28,7 +30,7 @@ const RoomPage: React.FC = () => {
     fetchUserProfile();
   }, []);
 
-  // Initialize the meeting only on the client side once all dependencies are ready.
+  // Initialize the meeting once dependencies are ready.
   useEffect(() => {
     console.log("Checking initialization dependencies:", {
       RoomId,
@@ -48,8 +50,25 @@ const RoomPage: React.FC = () => {
         );
         const { ZegoUIKitPrebuilt } = await import("@zegocloud/zego-uikit-prebuilt");
         console.log("ZegoUIKitPrebuilt loaded:", ZegoUIKitPrebuilt);
-        const AppId = 74206127;
-        const ServerSecret = "20a0c3c047ae13bf7a606cd5fef59b3e";
+        const AppId = 1197900896;
+        const ServerSecret = "5253cb2f01287a8115e723d4b96706c6";
+        
+        // Log parameters before token generation for debugging.
+        console.log("Generating kit token with parameters:", {
+          AppId,
+          ServerSecret,
+          RoomId,
+          userId,
+          username,
+        });
+        
+        // Ensure username is valid
+        if (!username) {
+          console.error("Username is empty! Cannot generate kit token.");
+          return;
+        }
+        
+        // Generate the kit token.
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
           AppId,
           ServerSecret,
@@ -57,13 +76,15 @@ const RoomPage: React.FC = () => {
           userId,
           username
         );
+        console.log("Generated kit token:", kitToken); // Log token for debugging
+        
         const zc = ZegoUIKitPrebuilt.create(kitToken);
         zc.joinRoom({
           container: element,
           sharedLinks: [
             {
               name: "Copy Link",
-              url: `https://localhost:3000/video-call/${RoomId}`, // note: 'url' in lowercase
+              url: `https://localhost:3000/video-call/${RoomId}`,
               scenario: {
                 mode: ZegoUIKitPrebuilt.OneONoneCall,
               },
@@ -74,12 +95,13 @@ const RoomPage: React.FC = () => {
       };
 
       initMeeting(meetingRef.current);
+    } else {
+      console.log("Meeting initialization pending missing parameters");
     }
   }, [RoomId, userId, username]);
 
   return (
     <div>
-      {/* Adding a border to verify that the container is visible */}
       <div ref={meetingRef} style={{ width: "100%", border: "2px solid red" }} />
     </div>
   );

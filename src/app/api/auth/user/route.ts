@@ -25,15 +25,23 @@ export async function GET(req: NextRequest) {
 
     const users = await User.find({}); 
     const user = await User.findById(decoded.id);
-    
+    const userProfile = await UserProfileModel.findOne({ userId: decoded.id });
 
 
     if (user) {
 
       return NextResponse.json({ 
      
+        username: user.username, 
+        age: user.age, 
         _id: user._id, 
-       username:user.username
+        skills: userProfile?.skills || [], 
+        experiences: userProfile?.experiences || [], 
+        about: userProfile?.about || "",
+       professions: userProfile?.professions || [],
+       interests: userProfile?.interests || [],
+       profilePicture: userProfile?.profilePicture ||"",
+       users 
         
       });
     } else {
