@@ -4,6 +4,7 @@ import Gradient from '@/myComponents/Gradient';
 import Hero from '@/myComponents/Hero';
 import Contact from '@/myComponents/Contact';
 import Navbar from '@/myComponents/Navbar';
+import EventsCalendar from '@/myComponents/EventsCalendar';
 
 
 const Index = () => {
@@ -24,8 +25,9 @@ const Index = () => {
     <div>
       <Contact/>
     </div>
-
-
+    <div>
+      <EventsCalendar/>
+    </div>
     </>
   );
 };
