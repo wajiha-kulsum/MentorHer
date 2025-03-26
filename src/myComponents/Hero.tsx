@@ -45,12 +45,12 @@ const features = [
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-rose-50">
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center ">
       {/* Soft Background Elements */}
-      <div className="absolute inset-0 opacity-10">
+      {/* <div className="absolute inset-0 opacity-10">
         <div className="absolute top-16 left-10 w-96 h-96 rounded-full bg-pink-300 blur-3xl"></div>
         <div className="absolute bottom-16 right-10 w-96 h-96 rounded-full bg-purple-300 blur-3xl"></div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="relative w-full max-w-[1600px] mx-auto px-6 py-24 flex flex-col">

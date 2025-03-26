@@ -9,7 +9,7 @@ export default function Gradient() {
       </div>
       
       {/* Text Overlay with special font treatment */}
-      <div className="absolute top-[200px] left-[80px]">
+      <div className="absolute top-[300px] left-[80px]">
         <h1 className="text-8xl md:text-50xl lg:text-9xl font-extrabold leading-none tracking-tight text-gray-600">
           <span className="inline-block font-sans">Your Journey,</span><br />
           <span className="inline-block font-serif italic font-medium">Her Guidance,</span><br />
