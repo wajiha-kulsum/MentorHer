@@ -12,9 +12,9 @@ export async function POST() {
       path: "/", // Cookie applies to the entire site
     });
 
-    // Add the cookie to the response headers to effectively "logout" the user
+    // Add the cookie to the response headers
     const response = NextResponse.json({ message: "Logged out successfully" });
-    response.headers.set("Set-Cookie", cookie); // Set the cookie with an expired date
+    response.headers.set("Set-Cookie", cookie);
 
     return response;
   } catch (error) {

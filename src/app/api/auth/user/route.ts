@@ -23,8 +23,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
-
- 
+    const users = await User.find({}); 
     const user = await User.findById(decoded.id);
     
 
@@ -38,7 +37,7 @@ export async function GET(req: NextRequest) {
         
       });
     } else {
-      console.log('here')
+
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
    
