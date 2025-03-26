@@ -1,14 +1,16 @@
 
 import React from 'react';
 import Gradient from '@/myComponents/Gradient';
-import Hero from '@/myComponents/Hero';
-import Contact from '@/myComponents/Contact';
 import Navbar from '@/myComponents/Navbar';
+<<<<<<< HEAD
 import Footer from '@/myComponents/Footer';
 import { FAQAccordion } from '@/myComponents/FAQaccordion';
 
 import EventsCalendar from '@/myComponents/EventsCalendar';
 import AICareerPathGenerator from '@/myComponents/AICareerPathGenerator';
+=======
+import AllComponents from '@/myComponents/Allcompnents';
+>>>>>>> d7fa4728ed5923b3c8355cf91a69985eaed55f75
 
 
 const Index = () => {
@@ -16,35 +18,25 @@ const Index = () => {
     <>
 
     <div>
-      <Navbar/>
-    </div>
-
-    <div>
       <Gradient/>
     </div>
 
     <div>
-        <Hero/>
+      <Navbar/>
     </div>
 
     
     <div>
+<<<<<<< HEAD
       <AICareerPathGenerator/>
     </div>
    
     <div>
       <EventsCalendar/>
+=======
+      <AllComponents/>
+>>>>>>> d7fa4728ed5923b3c8355cf91a69985eaed55f75
     </div>
-
-    <div>
-      <FAQAccordion/>
-    </div>
-
-    
-
-   <div>
-     <Footer/>
-   </div>
     
     </>
   );
