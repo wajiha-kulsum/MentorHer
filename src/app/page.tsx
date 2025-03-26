@@ -8,6 +8,7 @@ import Footer from '@/myComponents/Footer';
 import { FAQAccordion } from '@/myComponents/FAQaccordion';
 
 import EventsCalendar from '@/myComponents/EventsCalendar';
+import AICareerPathGenerator from '@/myComponents/AICareerPathGenerator';
 
 
 const Index = () => {
@@ -26,8 +27,13 @@ const Index = () => {
         <Hero/>
     </div>
 
+    
     <div>
-      <Contact/>
+      <AICareerPathGenerator/>
+    </div>
+   
+    <div>
+      <EventsCalendar/>
     </div>
 
     <div>
