@@ -26,7 +26,7 @@ export default function Navbar() {
             <Users size={20} />
             <span>Community</span>
           </a>
-          <a href="#" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-2 text-base font-medium">
+          <a href="" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-2 text-base font-medium">
             <Calendar size={20} />
             <span>Events</span>
           </a>
