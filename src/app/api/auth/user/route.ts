@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import jwt, { JwtPayload } from 'jsonwebtoken'; 
+import User from '@/models/User'; 
+import UserProfileModel from '@/models/userProfile';
 
 export async function GET(req: NextRequest) {
   // Retrieve the token from cookies
