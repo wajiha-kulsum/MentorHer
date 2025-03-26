@@ -4,18 +4,22 @@ import Gradient from '@/myComponents/Gradient';
 import Hero from '@/myComponents/Hero';
 import Contact from '@/myComponents/Contact';
 import Navbar from '@/myComponents/Navbar';
+import Footer from '@/myComponents/Footer';
+import { FAQAccordion } from '@/myComponents/FAQaccordion';
+
 import EventsCalendar from '@/myComponents/EventsCalendar';
 
 
 const Index = () => {
   return (
     <>
+
     <div>
       <Navbar/>
     </div>
 
     <div>
-        <Gradient/>
+      <Gradient/>
     </div>
 
     <div>
@@ -24,6 +28,19 @@ const Index = () => {
 
     <div>
       <Contact/>
+    </div>
+
+    <div>
+      <FAQAccordion/>
+    </div>
+
+    
+
+   <div>
+     <Footer/>
+   </div>
+
+
     </div>
     <div>
       <EventsCalendar/>
