@@ -10,9 +10,11 @@ import AICareerPathGenerator from '@/myComponents/AICareerPathGenerator';
 import AllComponents from '@/myComponents/Allcompnents';
 
 
+
 const Index = () => {
   return (
     <>
+  
 
     <div>
       <Gradient/>
