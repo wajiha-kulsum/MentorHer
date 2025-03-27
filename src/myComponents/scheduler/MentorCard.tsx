@@ -33,6 +33,6 @@ export default function MentorCard(props: MentorCardProps) {
       <a href={props.calendarLink} target="_blank" className="block text-center bg-primary text-white py-1 rounded hover:bg-primary/90">
         Schedule
       </a>
-    </div>
+    </div> 
   );
 }

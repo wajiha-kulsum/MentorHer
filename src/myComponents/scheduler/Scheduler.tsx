@@ -103,7 +103,7 @@ export default function Scheduler() {
             <div key={index} className="p-8 bg-white border rounded-lg shadow-xl transition-transform transform hover:scale-105">
               <h3 className="text-2xl font-semibold mb-4 text-purple-600">{index + 1}. {title}</h3>
               <p className="text-gray-700">{index === 0 ? 'Browse our community of women tech leaders and find the perfect match for your goals.' : index === 1 ? 'Schedule a time that works for both of you with our integrated calendar system.' : 'Get personalized guidance, feedback, and support to advance in your tech journey.'}</p>
-            </div>
+            </div> 
           ))}
         </div>
       </div>
