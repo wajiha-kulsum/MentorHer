@@ -35,13 +35,7 @@ export async function GET(req: NextRequest) {
         username: user.username, 
         age: user.age, 
         _id: user._id, 
-        skills: userProfile?.skills || [], 
-        experiences: userProfile?.experiences || [], 
-        about: userProfile?.about || "",
-       professions: userProfile?.professions || [],
-       interests: userProfile?.interests || [],
-       profilePicture: userProfile?.profilePicture ||"",
-       users 
+ 
         
       });
     } else {
