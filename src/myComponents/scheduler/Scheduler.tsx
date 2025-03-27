@@ -106,7 +106,7 @@ export default function Scheduler() {
             </div> 
           ))}
         </div>
-      </div>
+      </div> 
 
       {/* Community Feedback Section */}
       <div className="text-center my-16 mt-30">
