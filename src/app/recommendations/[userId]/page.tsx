@@ -1,9 +1,7 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-// Define TypeScript interfaces for the mentor and recommendation data.
 interface Mentor {
   userId: string;
   fullName: string;
@@ -22,22 +20,51 @@ interface Recommendation {
 }
 
 const RecommendationsPage = () => {
-  // Get the dynamic userId from the URL.
   const { userId } = useParams();
-  
-  // State to hold recommendations, loading status, and any errors.
+  const router = useRouter();
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [menteeData, setMenteeData] = useState<any>(null);
 
-  // Fetch recommendations on component mount or whenever userId changes.
+  // Fetch mentee data
+  useEffect(() => {
+    async function fetchMenteeData() {
+      try {
+        const res = await fetch("/api/auth/menteedata");
+
+        // If unauthorized, redirect to login
+        if (res.status === 401) {
+          router.push("/auth/login");
+          return;
+        }
+
+        const json = await res.json();
+
+        if (json.success && json.data) {
+          setMenteeData(json.data);
+          router.push(`/recommendations/${userId}`);
+        } else {
+          router.push("/Become-mentee");
+        }
+      } catch (error) {
+        console.error("Error fetching mentee data:", error);
+        router.push("/Become-mentee");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMenteeData();
+  }, [router, userId]);
+
+  // Fetch recommendations data
   useEffect(() => {
     const fetchRecommendations = async () => {
+      // It’s fine to set loading here as well if needed
       setLoading(true);
       setError(null);
 
       try {
-        // Call your API endpoint.
         const res = await fetch(`/api/recommendations/${userId}`);
         if (!res.ok) {
           throw new Error("Failed to fetch recommendations");
@@ -56,7 +83,7 @@ const RecommendationsPage = () => {
     }
   }, [userId]);
 
-  // Render different states: loading, error, no recommendations, and the recommendation list.
+  // Now, conditionally render the UI after all hooks have been called.
   if (loading) {
     return <div className="container mx-auto py-8">Loading recommendations...</div>;
   }

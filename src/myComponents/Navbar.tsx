@@ -1,30 +1,25 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Home, BookOpen, Users, LogIn, UserPlus, ChevronDown, Calendar } from "lucide-react";
 
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const dropdownRef = useRef(null);
 
   // Check authentication status on mount.
   useEffect(() => {
-    const checkUser = async () => {
+    const fetchUser = async () => {
       try {
         const res = await fetch("/api/auth/user", { cache: "no-store" });
         const data = await res.json();
-        console.log("Fetched auth data:", data); // Debug log
-
-        if (res.ok) {
-          // Adjust according to the API response structure.
-          // If the API returns { user: { ... } }:
-          if (data.user !== undefined) {
-            setUser(data.user);
-          } else {
-            // Otherwise, if it returns the user object directly:
-            setUser(data);
-          }
+        console.log("Fetched auth data:", data);
+  
+        // Use a strict check: for example, check if data.user exists and has an _id property.
+        if (data && data._id) {
+          setUser(data);
         } else {
           setUser(null);
         }
@@ -35,9 +30,10 @@ export default function Navbar() {
         setIsLoading(false);
       }
     };
-    checkUser();
+    fetchUser();
   }, []);
 
+  // Handle logout
   const handleLogout = async () => {
     try {
       const res = await fetch("/api/auth/logout", { method: "POST" });
@@ -49,6 +45,21 @@ export default function Navbar() {
     }
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
   return (
     <nav className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-6xl px-8">
       <div className="bg-white/80 backdrop-blur-lg border border-white/20 rounded-full px-12 py-3 shadow-xl flex items-center justify-between">
@@ -59,10 +70,12 @@ export default function Navbar() {
           </Link>
 
           {/* Services Dropdown */}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium"
+              aria-haspopup="true"
+              aria-expanded={isDropdownOpen}
             >
               <BookOpen size={20} />
               <span>Services</span>
@@ -77,7 +90,7 @@ export default function Navbar() {
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  Find a Mentor
+                  Become a Mentee
                 </Link>
                 <Link
                   href="/BecomeMentor"
@@ -86,6 +99,15 @@ export default function Navbar() {
                 >
                   Become a Mentor
                 </Link>
+                {user && (
+                  <Link
+                    href={`/recommendations/${user._id}`}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    Recommend mentors
+                  </Link>
+                )}
               </div>
             )}
           </div>
@@ -103,9 +125,8 @@ export default function Navbar() {
 
         {/* Auth Options */}
         <div className="flex items-center space-x-10">
-          {/* Show nothing until the auth check is complete */}
-          {!isLoading &&
-            (user ? (
+          {!isLoading && (
+            user ? (
               <button
                 onClick={handleLogout}
                 className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium"
@@ -126,7 +147,8 @@ export default function Navbar() {
                   <span>Register</span>
                 </Link>
               </>
-            ))}
+            )
+          )}
         </div>
       </div>
     </nav>
