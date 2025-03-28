@@ -5,10 +5,10 @@ import bcrypt from 'bcryptjs';
 
 export async function POST(req: Request) {
   try {
-    const { username, email, age,gender, password } = await req.json();
+    const { username, email, age, password } = await req.json();
 
     // Input Validation
-    if (!username || !email || !age || !gender || !password) {
+    if (!username || !email || !age ||  !password) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       username,
       email,
       age, // Make sure to save the age
-      gender,
+     
       password: hashedPassword,
     });
 

@@ -49,6 +49,7 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";  // Import useRouter
 
 const steps = [
   "Personal Info",
@@ -72,6 +73,7 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
     { role: "", company: "", duration: "", description: "", current: false },
   ]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter(); // Initialize the router
 
   const form = useForm({
     resolver: zodResolver(mentorFormSchema),
@@ -206,17 +208,16 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
       });
       const result = await response.json();
 
-      // If not successful, use the error message from the API.
       if (!response.ok) {
         throw new Error(result.error || "Failed to submit mentor data");
       }
 
-      // If the API returns a message (e.g. "Experience added successfully"), log or display it.
       if (result.message) {
         console.log(result.message);
       }
       console.log("Submission successful:", result);
       onSubmit?.(data);
+      router.push("/mentor-dashboard"); // Redirect after submission
     } catch (error: any) {
       console.error("Submission error:", error.message);
     } finally {
@@ -228,7 +229,13 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
     switch (currentStep) {
       case 0:
         return (
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="step-0" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            key="step-0"
+            className="space-y-6"
+          >
             <MentorFieldset legend="Personal Information" description="Tell us about yourself">
               <FormField
                 control={control}
@@ -280,7 +287,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                     <FormControl>
                       <ImageUpload value={field.value} onChange={(file) => field.onChange(file)} />
                     </FormControl>
-                    <FormDescription>Upload a professional photo to be displayed on your mentor profile</FormDescription>
+                    <FormDescription>
+                      Upload a professional photo to be displayed on your mentor profile
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -290,7 +299,13 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
         );
       case 1:
         return (
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="step-1" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            key="step-1"
+            className="space-y-6"
+          >
             <MentorFieldset legend="Professional Background" description="Tell us about your professional experience">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
@@ -327,7 +342,15 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                   <FormItem>
                     <FormLabel>Years of Experience</FormLabel>
                     <FormControl>
-                      <Input type="number" min={1} placeholder="Years of experience" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
+                      <Input
+                        type="number"
+                        min={1}
+                        placeholder="Years of experience"
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(parseInt(e.target.value) || 0)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -351,9 +374,21 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
         );
       case 2:
         return (
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="step-2" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            key="step-2"
+            className="space-y-6"
+          >
             <MentorFieldset legend="Work Experience" description="Add your work experiences">
-              <Button type="button" variant="outline" size="sm" onClick={addExperienceSlot} className="h-8 gap-1">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={addExperienceSlot}
+                className="h-8 gap-1"
+              >
                 <PlusCircle className="h-3.5 w-3.5" />
                 Add Experience
               </Button>
@@ -368,7 +403,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                             id={`exp-role-${index}`}
                             placeholder="e.g. Senior Developer"
                             value={exp.role}
-                            onChange={(e) => updateExperienceSlot(index, "role", e.target.value)}
+                            onChange={(e) =>
+                              updateExperienceSlot(index, "role", e.target.value)
+                            }
                           />
                         </div>
                         <div>
@@ -377,7 +414,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                             id={`exp-company-${index}`}
                             placeholder="e.g. Tech Corp"
                             value={exp.company}
-                            onChange={(e) => updateExperienceSlot(index, "company", e.target.value)}
+                            onChange={(e) =>
+                              updateExperienceSlot(index, "company", e.target.value)
+                            }
                           />
                         </div>
                         <div>
@@ -386,7 +425,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                             id={`exp-duration-${index}`}
                             placeholder="e.g. Jan 2020 - Present"
                             value={exp.duration}
-                            onChange={(e) => updateExperienceSlot(index, "duration", e.target.value)}
+                            onChange={(e) =>
+                              updateExperienceSlot(index, "duration", e.target.value)
+                            }
                           />
                         </div>
                         <div>
@@ -394,7 +435,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                           <Checkbox
                             id={`exp-current-${index}`}
                             checked={exp.current}
-                            onCheckedChange={(checked) => updateExperienceSlot(index, "current", checked)}
+                            onCheckedChange={(checked) =>
+                              updateExperienceSlot(index, "current", checked)
+                            }
                           />
                         </div>
                         <div className="col-span-2">
@@ -403,7 +446,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                             id={`exp-description-${index}`}
                             placeholder="Describe your responsibilities"
                             value={exp.description}
-                            onChange={(e) => updateExperienceSlot(index, "description", e.target.value)}
+                            onChange={(e) =>
+                              updateExperienceSlot(index, "description", e.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -428,7 +473,13 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
         );
       case 3:
         return (
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="step-3" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            key="step-3"
+            className="space-y-6"
+          >
             <MentorFieldset legend="Areas of Expertise & Skills" description="Share your technical and professional skills">
               <FormField
                 control={control}
@@ -437,9 +488,16 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                   <FormItem>
                     <FormLabel>Technical Skills</FormLabel>
                     <FormControl>
-                      <MultiSelect options={technicalSkillOptions} selected={field.value || []} onChange={field.onChange} placeholder="Select technical skills" />
+                      <MultiSelect
+                        options={technicalSkillOptions}
+                        selected={field.value || []}
+                        onChange={field.onChange}
+                        placeholder="Select technical skills"
+                      />
                     </FormControl>
-                    <FormDescription>Select the technical skills you're proficient in</FormDescription>
+                    <FormDescription>
+                      Select the technical skills you're proficient in
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -464,7 +522,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormDescription>Choose the industry where you have the most experience</FormDescription>
+                    <FormDescription>
+                      Choose the industry where you have the most experience
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -476,9 +536,16 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                   <FormItem>
                     <FormLabel>Soft Skills</FormLabel>
                     <FormControl>
-                      <MultiSelect options={softSkillOptions} selected={field.value || []} onChange={field.onChange} placeholder="Select soft skills" />
+                      <MultiSelect
+                        options={softSkillOptions}
+                        selected={field.value || []}
+                        onChange={field.onChange}
+                        placeholder="Select soft skills"
+                      />
                     </FormControl>
-                    <FormDescription>Select the soft skills you excel in</FormDescription>
+                    <FormDescription>
+                      Select the soft skills you excel in
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -488,7 +555,13 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
         );
       case 4:
         return (
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="step-4" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            key="step-4"
+            className="space-y-6"
+          >
             <MentorFieldset legend="Mentorship Specifics" description="Tell us about your mentoring style and availability">
               <FormField
                 control={control}
@@ -499,7 +572,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                     <FormControl>
                       <Textarea placeholder="Describe what you hope to achieve as a mentor" {...field} />
                     </FormControl>
-                    <FormDescription>Explain the impact you want to have as a mentor</FormDescription>
+                    <FormDescription>
+                      Explain the impact you want to have as a mentor
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -517,12 +592,20 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="structured">Structured (Regular sessions with defined goals)</SelectItem>
-                        <SelectItem value="informal">Informal (Flexible availability for questions)</SelectItem>
-                        <SelectItem value="hybrid">Hybrid (Mix of structured sessions and ad-hoc support)</SelectItem>
+                        <SelectItem value="structured">
+                          Structured (Regular sessions with defined goals)
+                        </SelectItem>
+                        <SelectItem value="informal">
+                          Informal (Flexible availability for questions)
+                        </SelectItem>
+                        <SelectItem value="hybrid">
+                          Hybrid (Mix of structured sessions and ad-hoc support)
+                        </SelectItem>
                       </SelectContent>
                     </Select>
-                    <FormDescription>Choose the mentoring approach that best suits your style</FormDescription>
+                    <FormDescription>
+                      Choose the mentoring approach that best suits your style
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -530,12 +613,20 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <FormLabel>Availability</FormLabel>
-                  <Button type="button" variant="outline" size="sm" onClick={addAvailabilitySlot} className="h-8 gap-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={addAvailabilitySlot}
+                    className="h-8 gap-1"
+                  >
                     <PlusCircle className="h-3.5 w-3.5" />
                     Add Time Slot
                   </Button>
                 </div>
-                <FormDescription className="mt-0">Specify when you're available for mentoring sessions</FormDescription>
+                <FormDescription className="mt-0">
+                  Specify when you're available for mentoring sessions
+                </FormDescription>
                 <div className="space-y-3">
                   {availabilitySlots.map((slot, index) => (
                     <Card key={index} className="shadow-sm">
@@ -560,14 +651,33 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                           </div>
                           <div className="md:col-span-2">
                             <Label htmlFor={`start-time-${index}`}>Start Time</Label>
-                            <Input id={`start-time-${index}`} type="time" value={slot.startTime} onChange={(e) => updateAvailabilitySlot(index, "startTime", e.target.value)} className="mt-1" />
+                            <Input
+                              id={`start-time-${index}`}
+                              type="time"
+                              value={slot.startTime}
+                              onChange={(e) => updateAvailabilitySlot(index, "startTime", e.target.value)}
+                              className="mt-1"
+                            />
                           </div>
                           <div className="md:col-span-2">
                             <Label htmlFor={`end-time-${index}`}>End Time</Label>
-                            <Input id={`end-time-${index}`} type="time" value={slot.endTime} onChange={(e) => updateAvailabilitySlot(index, "endTime", e.target.value)} className="mt-1" />
+                            <Input
+                              id={`end-time-${index}`}
+                              type="time"
+                              value={slot.endTime}
+                              onChange={(e) => updateAvailabilitySlot(index, "endTime", e.target.value)}
+                              className="mt-1"
+                            />
                           </div>
                           <div className="md:col-span-1 flex items-end">
-                            <Button type="button" variant="ghost" size="icon" onClick={() => removeAvailabilitySlot(index)} disabled={availabilitySlots.length <= 1} className="w-8 h-8 mt-1">
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => removeAvailabilitySlot(index)}
+                              disabled={availabilitySlots.length <= 1}
+                              className="w-8 h-8 mt-1"
+                            >
                               <MinusCircle className="h-4 w-4 text-muted-foreground" />
                             </Button>
                           </div>
@@ -576,7 +686,11 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                     </Card>
                   ))}
                 </div>
-                {errors.availability && <p className="text-sm font-medium text-destructive">{errors.availability.message as string}</p>}
+                {errors.availability && (
+                  <p className="text-sm font-medium text-destructive">
+                    {errors.availability.message as string}
+                  </p>
+                )}
               </div>
               <FormField
                 control={control}
@@ -587,7 +701,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                     <FormControl>
                       <Textarea placeholder="Describe any previous experience you have as a mentor" {...field} />
                     </FormControl>
-                    <FormDescription>Share details about any formal or informal mentoring you've done before</FormDescription>
+                    <FormDescription>
+                      Share details about any formal or informal mentoring you've done before
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -597,7 +713,13 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
         );
       case 5:
         return (
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="step-5" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            key="step-5"
+            className="space-y-6"
+          >
             <MentorFieldset legend="Online Presence & Additional Details" description="Share your online profiles and additional information">
               <FormField
                 control={control}
@@ -608,7 +730,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                     <FormControl>
                       <Input placeholder="https://linkedin.com/in/yourprofile" {...field} />
                     </FormControl>
-                    <FormDescription>Share your LinkedIn profile or portfolio</FormDescription>
+                    <FormDescription>
+                      Share your LinkedIn profile or portfolio
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -622,7 +746,9 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                     <FormControl>
                       <Textarea placeholder="Write a short introduction about yourself" {...field} />
                     </FormControl>
-                    <FormDescription>This will be displayed on your mentor profile</FormDescription>
+                    <FormDescription>
+                      This will be displayed on your mentor profile
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -647,7 +773,12 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                   <FormItem>
                     <FormLabel>Languages Spoken</FormLabel>
                     <FormControl>
-                      <MultiSelect options={languageOptions} selected={field.value || []} onChange={field.onChange} placeholder="Select languages" />
+                      <MultiSelect
+                        options={languageOptions}
+                        selected={field.value || []}
+                        onChange={field.onChange}
+                        placeholder="Select languages"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -660,9 +791,16 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                   <FormItem>
                     <FormLabel>Areas of Interest for Mentoring (Optional)</FormLabel>
                     <FormControl>
-                      <MultiSelect options={areasOfInterestOptions} selected={field.value || []} onChange={field.onChange} placeholder="Select areas of interest" />
+                      <MultiSelect
+                        options={areasOfInterestOptions}
+                        selected={field.value || []}
+                        onChange={field.onChange}
+                        placeholder="Select areas of interest"
+                      />
                     </FormControl>
-                    <FormDescription>Select specific areas where you'd like to focus your mentoring</FormDescription>
+                    <FormDescription>
+                      Select specific areas where you'd like to focus your mentoring
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

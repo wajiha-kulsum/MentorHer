@@ -11,19 +11,17 @@ export const mentorFormSchema = z.object({
   // Professional Background
   currentRole: z.string().min(1, "Current role is required"),
   company: z.string().min(1, "Company name is required"),
-  yearsOfExperience: z.coerce.number()
-    .min(1, "Experience must be at least 1 year")
-    .max(50, "Experience must be less than 50 years"),
-  education: z.string().min(1, "Education details are required"),
+  yearsOfExperience: z.coerce.number().optional(),
+  education: z.string().optional(),
   careerHistory: z.string().optional(),
   
   // Areas of Expertise & Skills
   technicalSkills: z.array(z.string()).min(1, "Select at least one technical skill"),
-  industrySpecialization: z.string().min(1, "Industry specialization is required"),
-  softSkills: z.array(z.string()).min(1, "Select at least one soft skill"),
+  industrySpecialization: z.string().optional(),
+  softSkills: z.array(z.string()).optional(),
   
   // Mentorship Specifics
-  mentoringGoals: z.string().min(10, "Please describe your mentoring goals (min 10 characters)"),
+  mentoringGoals: z.string().optional(),
   mentoringStyle: z.enum(["structured", "informal", "hybrid"], {
     errorMap: () => ({ message: "Please select a mentoring style" }),
   }),
@@ -35,10 +33,10 @@ export const mentorFormSchema = z.object({
   mentorshipExperience: z.string().optional(),
   
   // Online Presence & Additional Resources
-  linkedinUrl: z.string().url("Please enter a valid LinkedIn URL").or(z.literal("")),
-  personalBio: z.string().min(10, "Please provide a personal bio (min 10 characters)"),
+  linkedinUrl: z.string().url("Please enter a valid LinkedIn URL").or(z.literal("")).optional(),
+  personalBio: z.string().optional(),
   achievements: z.string().optional(),
-  languages: z.array(z.string()).min(1, "Please select at least one language"),
+  languages: z.array(z.string()).optional(),
   
   // Optional Enhancements
   areasOfInterest: z.array(z.string()).optional(),
