@@ -1,25 +1,58 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Sparkles } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
 
 export interface SkillCategory {
   name: string;
   skills: string[];
 }
 
-interface ProfileSkillsProps {
-  categories: SkillCategory[];
-  isOwnProfile?: boolean;
-  onEdit?: () => void;
-}
+const ProfileSkills: React.FC = () => {
+  const [categories, setCategories] = useState<SkillCategory[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-const ProfileSkills = ({ 
-  categories, 
-  isOwnProfile = false,
-  onEdit 
-}: ProfileSkillsProps) => {
+  // Fetch profile data from API and extract technicalSkills as one category.
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/auth/menteedata");
+        const result = await res.json();
+
+        if (!res.ok) {
+          setError(result.error || "Failed to load profile data");
+          return;
+        }
+
+        const fetchedData = result.data;
+        // Map the technicalSkills (array of strings) to a single SkillCategory.
+        const skillsArray: SkillCategory[] = fetchedData.technicalSkills
+          ? [{ name: "Technical Skills", skills: fetchedData.technicalSkills }]
+          : [];
+        setCategories(skillsArray);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleEdit = () => {
+    toast.success("Edit skills functionality coming soon!");
+  };
+
+  if (loading) return <div>Loading skills...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <Card className="mb-6 border-2 border-accent/30 overflow-hidden">
       <CardHeader className="pb-3 bg-accent/10">
@@ -28,12 +61,10 @@ const ProfileSkills = ({
             <Sparkles className="h-5 w-5 text-primary/70" />
             Skills & Expertise
           </CardTitle>
-          {isOwnProfile && (
-            <Button variant="ghost" size="sm" onClick={onEdit} className="h-8 p-2">
-              <Pencil className="h-4 w-4 mr-1" />
-              Edit
-            </Button>
-          )}
+          <Button variant="ghost" size="sm" onClick={handleEdit} className="h-8 p-2">
+            <Pencil className="h-4 w-4 mr-1" />
+            Edit
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="p-5">
@@ -47,8 +78,8 @@ const ProfileSkills = ({
                 <h3 className="font-medium text-lg mb-4">{category.name}</h3>
                 <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill) => (
-                    <Badge 
-                      key={skill} 
+                    <Badge
+                      key={skill}
                       variant="secondary"
                       className="px-3 py-1.5 text-sm rounded-full bg-secondary/60 hover:bg-secondary/80 transition-colors"
                     >

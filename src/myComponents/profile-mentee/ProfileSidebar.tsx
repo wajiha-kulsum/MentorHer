@@ -1,23 +1,59 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Eye, Users, Medal, GraduationCap, Languages, ArrowUpRight } from "lucide-react";
+import { toast } from "sonner";
 
-interface ProfileSidebarProps {
-  languages: string[];
+interface MenteeData {
+  languages?: string[];
   achievements?: string[];
   mentorshipExperience?: string;
   profileViewCount?: number;
   education?: string;
 }
 
-const ProfileSidebar = ({
-  languages,
-  achievements = [],
-  mentorshipExperience,
-  profileViewCount = 0,
-  education
-}: ProfileSidebarProps) => {
+const ProfileSidebar: React.FC = () => {
+  const [data, setData] = useState<MenteeData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch profile data from the API endpoint
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const res = await fetch("/api/auth/menteedata");
+        const result = await res.json();
+        if (!res.ok) {
+          setError(result.error || "Failed to load profile data");
+          return;
+        }
+        // Extract the sidebar fields from the fetched data
+        setData({
+          languages: result.data.languages || [],
+          achievements: result.data.achievements || [],
+          mentorshipExperience: result.data.mentorshipExperience || "",
+          profileViewCount: result.data.profileViewCount || 0,
+          education: result.data.education || "",
+        });
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  if (loading) return <div>Loading sidebar...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!data) return <div>No sidebar data found.</div>;
+
+  const { languages, achievements = [], mentorshipExperience, profileViewCount = 0, education } = data;
+
   return (
     <div className="space-y-6">
       {/* Profile Activity */}
@@ -32,7 +68,7 @@ const ProfileSidebar = ({
       </Card>
       
       {/* Languages */}
-      {languages.length > 0 && (
+      {languages && languages.length > 0 && (
         <Card className="overflow-hidden border-2 border-accent/30">
           <CardContent className="p-5">
             <h3 className="font-medium text-lg flex items-center gap-2 mb-3">
@@ -40,8 +76,11 @@ const ProfileSidebar = ({
               Languages
             </h3>
             <div className="flex flex-wrap gap-2">
-              {languages.map(language => (
-                <Badge key={language} className="px-3 py-1.5 text-sm bg-accent/20 border-accent/20 text-foreground rounded-full">
+              {languages.map((language) => (
+                <Badge 
+                  key={language} 
+                  className="px-3 py-1.5 text-sm bg-accent/20 border-accent/20 text-foreground rounded-full"
+                >
                   {language}
                 </Badge>
               ))}
@@ -64,7 +103,7 @@ const ProfileSidebar = ({
       )}
       
       {/* Achievements */}
-      {achievements.length > 0 && (
+      {achievements && achievements.length > 0 && (
         <Card className="overflow-hidden border-2 border-accent/30">
           <CardContent className="p-5">
             <h3 className="font-medium text-lg flex items-center gap-2 mb-3">
@@ -105,7 +144,7 @@ const ProfileSidebar = ({
           </p>
           <Button className="w-full rounded-full flex items-center gap-2 py-5 text-base">
             Join Community
-            <ArrowUpRight className="h-4 w-4" />  
+            <ArrowUpRight className="h-4 w-4" />
           </Button>
         </CardContent>
       </Card>

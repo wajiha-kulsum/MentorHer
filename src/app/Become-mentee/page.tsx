@@ -1,27 +1,43 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import MenteeForm from "../../myComponents/MenteeForm";
+import MenteeForm from "../../myComponents/MenteeForm"; // Ensure your MentorForm collects the correct fields
 
-const BecomeMentor = () => {
-  const router= useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const BecomeMentor: React.FC = () => {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleSubmit = async (data: any) => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log("Form data submitted:", data);
-    toast.success("Application submitted", {
-      description: "Your mentor profile has been created!",
-    });
-    setIsSubmitting(false);
-    // Redirect to mentor dashboard
-    router.push("/mentor-dashboard");
+    try {
+      // Call the API endpoint that creates a mentor (using the Mentee model)
+      const res = await fetch("/api/mentee", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        toast.error(result.error || "Submission failed");
+        return;
+      }
+      toast.success("Application submitted", {
+        description: "Thank you for applying to be a mentor!",
+      });
+      // Optionally navigate to a dashboard or success page
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -65,7 +81,7 @@ const BecomeMentor = () => {
                   Fill out the form below to begin your mentorship journey.
                 </p>
               </div>
-
+              {/* MentorForm collects data matching the Mentee model */}
               <MenteeForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
             </div>
           </motion.div>
