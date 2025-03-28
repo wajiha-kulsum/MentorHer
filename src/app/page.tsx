@@ -1,53 +1,50 @@
+import React from 'react'; 
+import Gradient from '@/myComponents/Gradient'; 
+import Navbar from '@/myComponents/Navbar'; 
+import Footer from '@/myComponents/Footer'; 
+import { FAQAccordion } from '@/myComponents/FAQaccordion';  
+import EventsCalendar from '@/myComponents/EventsCalendar'; 
+import AICareerPathGenerator from '@/myComponents/AICareerPathGenerator'; 
+import AllComponents from '@/myComponents/Allcompnents'; 
+import { NotificationProvider } from '../myComponents/Notification/NotificationContext'; 
+import { SendNotification } from '../myComponents/Notification/SendNotification'; 
+import { TopRightNotifications } from '../myComponents/Notification/TopRightNotifications';
+import { NotificationList } from '../myComponents/Notification/NotificationList';
+import ContactUs from '@/myComponents/ContactUS';
 
-import React from 'react';
-import Gradient from '@/myComponents/Gradient';
-import Navbar from '@/myComponents/Navbar';
-import Footer from '@/myComponents/Footer';
-import { FAQAccordion } from '@/myComponents/FAQaccordion';
+const Index = () => {   
+  return (     
+    <NotificationProvider>
+      <div className="relative">
+        {/* Top Right Notifications */}
+        <TopRightNotifications />
 
-import EventsCalendar from '@/myComponents/EventsCalendar';
-import AICareerPathGenerator from '@/myComponents/AICareerPathGenerator';
-import AllComponents from '@/myComponents/Allcompnents';
+        {/* Navbar */}
+        <Navbar />
 
+        {/* Page Components */}
+        <Gradient />
+        <AICareerPathGenerator />
+        <EventsCalendar />
+        <FAQAccordion />
+        <AllComponents />
+        <ContactUs />
 
+        {/* Notification Components */}
+        <div className="container mx-auto p-6 grid md:grid-cols-2 gap-6">
+          <SendNotification              
+            currentUserId="user123"              
+            currentUserName="Alex Johnson"              
+            mentorId="mentor456"
+          />
+          <NotificationList />
+        </div>
 
-const Index = () => {
-  return (
-    <>
-  
-
-    <div>
-      <Gradient/>
-    </div>
-
-    <div>
-      <Navbar/>
-    </div>
-
-    
-    <div>
-      <AICareerPathGenerator/>
-    </div>
-   
-    <div>
-      <EventsCalendar/>
-    </div>
-
-    <div>
-      <FAQAccordion/>
-    </div>
-
-    
-
-   <div>
-     <Footer/>
-   </div>
-    <div>
-      <AllComponents/>
-    </div>
-    
-    </>
-  );
-};
+        {/* Footer */}
+        <Footer />
+      </div>
+    </NotificationProvider>
+  ); 
+}; 
 
 export default Index;
