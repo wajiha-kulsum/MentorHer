@@ -30,38 +30,41 @@ export default function Navbar() {
             {isDropdownOpen && (
               <div className="absolute mt-2 bg-white shadow-lg rounded-lg py-2 w-48">
                 <Link
-                  href="/scheduler"  
+                  href="/Become-mentee"  
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  Schedule a Session
+               Find a Mentor
+                </Link>
+                <Link
+                  href="/BecomeMentor"  
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+             Become a Mentor
                 </Link>
               </div>
             )}
           </div>
 
-          <Link href="/about" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
-            <Users size={20} />
-            <span>Community</span>
-          <a href="" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-2 text-base font-medium">
+          <Link href="/create-group" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
+            <Users size={20} />            <span>Community</span>
+          <a href="" className="text-gray-700 ml-5 hover:text-purple-600 transition-colors flex items-center gap-2 text-base font-medium">
             <Calendar size={20} />
             <span>Events</span>
           </a>
-            <span>About Us</span>
+      
           </Link>
 
-          <Link href="/contact" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
-            <MessageSquare size={20} />
-            <span>Contact</span>
-          </Link>
+      
         </div>
 
         <div className="flex items-center space-x-10">
-          <Link href="/login" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
+          <Link href="/auth/login" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
             <LogIn size={20} />
             <span>Login</span>
           </Link>
-          <Link href="/register" className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-full text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-3">
+          <Link href="/auth/register" className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-full text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-3">
             <UserPlus size={20} />
             <span>Register</span>
           </Link>

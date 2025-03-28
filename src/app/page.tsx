@@ -14,36 +14,36 @@ import ContactUs from '@/myComponents/ContactUS';
 
 const Index = () => {   
   return (     
-    <NotificationProvider>
+    // <NotificationProvider>
       <div className="relative">
         {/* Top Right Notifications */}
-        <TopRightNotifications />
+        {/* <TopRightNotifications /> */}
 
         {/* Navbar */}
         <Navbar />
 
         {/* Page Components */}
         <Gradient />
-        <AICareerPathGenerator />
+        {/* <AICareerPathGenerator /> */}
         <EventsCalendar />
         <FAQAccordion />
         <AllComponents />
-        <ContactUs />
+
 
         {/* Notification Components */}
-        <div className="container mx-auto p-6 grid md:grid-cols-2 gap-6">
+        {/* <div className="container mx-auto p-6 grid md:grid-cols-2 gap-6">
           <SendNotification              
             currentUserId="user123"              
             currentUserName="Alex Johnson"              
             mentorId="mentor456"
           />
           <NotificationList />
-        </div>
+        </div> */}
 
         {/* Footer */}
         <Footer />
       </div>
-    </NotificationProvider>
+    /* </NotificationProvider> */
   ); 
 }; 
 
