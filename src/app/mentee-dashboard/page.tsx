@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import Navigation from '../../myComponents/mentee-dashboard/Navigation';
 import StatsCard from '../../myComponents/mentee-dashboard/StatsCard';
