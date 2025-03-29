@@ -31,8 +31,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
 
-  // Create the JWT using jose, ensuring the user ID is stored as a string.
-  const token = await new SignJWT({ id: user._id.toString() })
+  // Create the JWT using jose, converting user._id to a string.
+  const token = await new SignJWT({ id: String(user._id) })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('1h')

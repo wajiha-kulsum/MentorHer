@@ -396,7 +396,7 @@ const MenteeDashboard = () => {
         </motion.div>
       </motion.main>
     </div>
-    </div>
+    
   );
 };
 

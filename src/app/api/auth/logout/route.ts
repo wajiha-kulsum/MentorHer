@@ -6,13 +6,12 @@ export async function POST() {
     // Clear the session or authentication token (cookie)
     const cookie = serialize("token", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-      sameSite: "strict", // Protect against CSRF
-      expires: new Date(0), // Expire immediately
-      path: "/", // Cookie applies to the entire site
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      expires: new Date(0),
+      path: "/",
     });
 
-    // Add the cookie to the response headers
     const response = NextResponse.json({ message: "Logged out successfully" });
     response.headers.set("Set-Cookie", cookie);
 
@@ -22,5 +21,3 @@ export async function POST() {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
-
-export const methods = ["POST"];

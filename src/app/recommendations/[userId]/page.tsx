@@ -77,15 +77,27 @@ const RecommendationsPage = () => {
   }, [userId]);
 
   if (loading) {
-    return <div className="container mx-auto py-8">Loading recommendations...</div>;
+    return (
+      <div className="container mx-auto py-8">
+        Loading recommendations...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="container mx-auto py-8 text-red-500">Error: {error}</div>;
+    return (
+      <div className="container mx-auto py-8 text-red-500">
+        Error: {error}
+      </div>
+    );
   }
 
   if (recommendations.length === 0) {
-    return <div className="container mx-auto py-8">No mentor recommendations found.</div>;
+    return (
+      <div className="container mx-auto py-8">
+        No mentor recommendations found.
+      </div>
+    );
   }
 
   return (
@@ -97,10 +109,12 @@ const RecommendationsPage = () => {
         <div className="absolute top-2/3 right-1/4 w-[30rem] h-[30rem] bg-purple-500/15 rounded-full blur-3xl"></div>
       </div>
 
-      <Navbar/>
+      <Navbar />
 
       <div className="bg-white/30 backdrop-blur-lg shadow-lg p-6 rounded-lg max-w-3xl w-full">
-        <h1 className="text-2xl font-bold mb-4 text-center">Mentor Recommendations</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Mentor Recommendations
+        </h1>
         <ul className="space-y-4">
           {recommendations.map((rec, index) => (
             <li
@@ -117,15 +131,19 @@ const RecommendationsPage = () => {
               )}
               <div>
                 <h2 className="text-xl font-semibold">{rec.mentor.fullName}</h2>
-                <p className="text-gray-700">{rec.mentor.currentRole} {rec.mentor.company && `at ${rec.mentor.company}`}</p>
+                <p className="text-gray-700">
+                  {rec.mentor.currentRole}{" "}
+                  {rec.mentor.company && `at ${rec.mentor.company}`}
+                </p>
                 <p className="text-gray-600">Email: {rec.mentor.email}</p>
-                <p className="text-sm text-gray-500">Similarity Score: {(rec.similarity * 100).toFixed(2)}%</p>
+                <p className="text-sm text-gray-500">
+                  Similarity Score: {(rec.similarity * 100).toFixed(2)}%
+                </p>
               </div>
             </li>
           ))}
         </ul>
       </div>
-    </div>
     </div>
   );
 };

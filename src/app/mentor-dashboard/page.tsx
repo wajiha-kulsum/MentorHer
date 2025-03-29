@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -43,8 +42,7 @@ const mentorAppointments = [
     time: "10:00 AM - 11:00 AM",
     status: "pending",
     topic: "Career Transition to Tech",
-    message:
-      "I would love to discuss how to transition from marketing to product management in tech.",
+    message: "I would love to discuss how to transition from marketing to product management in tech."
   },
   {
     id: "2",
@@ -54,8 +52,7 @@ const mentorAppointments = [
     time: "3:00 PM - 4:00 PM",
     status: "accepted",
     topic: "Technical Interview Preparation",
-    message:
-      "I have an interview next week and would appreciate your guidance on algorithm questions.",
+    message: "I have an interview next week and would appreciate your guidance on algorithm questions."
   },
   {
     id: "3",
@@ -65,7 +62,7 @@ const mentorAppointments = [
     time: "2:00 PM - 3:00 PM",
     status: "completed",
     topic: "Leadership in Tech",
-    message: "I want to discuss strategies for leading engineering teams effectively.",
+    message: "I want to discuss strategies for leading engineering teams effectively."
   },
   {
     id: "4",
@@ -75,8 +72,8 @@ const mentorAppointments = [
     time: "11:00 AM - 12:00 PM",
     status: "declined",
     topic: "Work-Life Balance",
-    message: "I'm struggling with burnout and would like to discuss coping strategies.",
-  },
+    message: "I'm struggling with burnout and would like to discuss coping strategies."
+  }
 ];
 
 const mentorMessages = [
@@ -86,7 +83,7 @@ const mentorMessages = [
     photo: "https://randomuser.me/api/portraits/women/33.jpg",
     message: "Thank you for accepting my mentorship request! Looking forward to our session.",
     time: "2 hours ago",
-    read: false,
+    read: false
   },
   {
     id: "2",
@@ -94,7 +91,7 @@ const mentorMessages = [
     photo: "https://randomuser.me/api/portraits/women/44.jpg",
     message: "I've shared some resources ahead of our technical interview prep session.",
     time: "Yesterday",
-    read: true,
+    read: true
   },
   {
     id: "3",
@@ -102,8 +99,8 @@ const mentorMessages = [
     photo: "",
     message: "You have 3 new mentee applications to review.",
     time: "2 days ago",
-    read: true,
-  },
+    read: true
+  }
 ];
 
 const mentorStats = {
@@ -111,17 +108,33 @@ const mentorStats = {
   activeSessionsThisMonth: 8,
   completedSessions: 45,
   averageRating: 4.8,
-  hoursContributed: 76,
+  hoursContributed: 76
 };
+
+const upcomingSessions = [
+  {
+    id: "1",
+    menteeName: "Rachel Green",
+    photo: "https://randomuser.me/api/portraits/women/44.jpg",
+    date: "Sep 18, 2023",
+    time: "3:00 PM - 4:00 PM",
+    topic: "Technical Interview Preparation"
+  },
+  {
+    id: "2",
+    menteeName: "Linda Chen",
+    photo: "https://randomuser.me/api/portraits/women/28.jpg",
+    date: "Sep 25, 2023",
+    time: "1:00 PM - 2:00 PM",
+    topic: "Frontend Development Best Practices"
+  }
+];
 
 const MentorDashboard = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [mentorData, setMentorData] = useState<any>(null);
   const [appointments, setAppointments] = useState(mentorAppointments);
-
-  // 1) New state to hold registered events from the backend
-  const [registeredEvents, setRegisteredEvents] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchMentorData() {
@@ -142,28 +155,6 @@ const MentorDashboard = () => {
     }
     fetchMentorData();
   }, [router]);
-
-  // 2) Fetch the user’s registered events
-// Fetch the user’s registered events
-useEffect(() => {
-  async function fetchRegisteredEvents() {
-    try {
-      const res = await fetch("/api/auth/Events");
-      const data = await res.json();
-      // Ensure we always set an array
-      const events = Array.isArray(data)
-        ? data
-        : data.events
-        ? data.events
-        : [];
-      setRegisteredEvents(events);
-    } catch (error) {
-      console.error("Error fetching registered events:", error);
-    }
-  }
-  fetchRegisteredEvents();
-}, []);
-
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -201,35 +192,29 @@ useEffect(() => {
   }
 
   const handleAccept = (id: string) => {
-    setAppointments(
-      appointments.map((app) =>
-        app.id === id ? { ...app, status: "accepted" } : app
-      )
-    );
-    toast.success("Appointment accepted", {
-      description: "The mentee has been notified of your acceptance.",
+    setAppointments(appointments.map(app => 
+      app.id === id ? { ...app, status: "accepted" } : app
+    ));
+    toast.success("Appointment accepted", { 
+      description: "The mentee has been notified of your acceptance."
     });
   };
 
   const handleDecline = (id: string) => {
-    setAppointments(
-      appointments.map((app) =>
-        app.id === id ? { ...app, status: "declined" } : app
-      )
-    );
-    toast.success("Appointment declined", {
-      description: "The mentee has been notified.",
+    setAppointments(appointments.map(app => 
+      app.id === id ? { ...app, status: "declined" } : app
+    ));
+    toast.success("Appointment declined", { 
+      description: "The mentee has been notified."
     });
   };
 
   const handleComplete = (id: string) => {
-    setAppointments(
-      appointments.map((app) =>
-        app.id === id ? { ...app, status: "completed" } : app
-      )
-    );
+    setAppointments(appointments.map(app => 
+      app.id === id ? { ...app, status: "completed" } : app
+    ));
     toast.success("Session marked as completed", {
-      description: "Thank you for contributing to the community!",
+      description: "Thank you for contributing to the community!"
     });
   };
 
@@ -383,13 +368,11 @@ useEffect(() => {
                                   <h4 className="font-medium text-gray-800">{appointment.menteeName}</h4>
                                   <p className="text-sm text-gray-600">{appointment.topic}</p>
                                 </div>
-                                <Badge
-                                  variant="outline"
-                                  className="bg-amber-50 text-amber-600 border-amber-200"
-                                >
-                                  Pending
-                                </Badge>
                               </div>
+                              <Badge variant="outline" className="bg-amber-50 text-amber-600 border-amber-200">
+                                Pending
+                              </Badge>
+                            </div>
 
                             <div className="mb-4 text-sm">
                               <div className="flex items-center text-gray-600 mb-1">
@@ -470,13 +453,11 @@ useEffect(() => {
                                   <h4 className="font-medium text-gray-800">{appointment.menteeName}</h4>
                                   <p className="text-sm text-gray-600">{appointment.topic}</p>
                                 </div>
-                                <Badge
-                                  variant="outline"
-                                  className="bg-emerald-50 text-emerald-600 border-emerald-200"
-                                >
-                                  Confirmed
-                                </Badge>
                               </div>
+                              <Badge variant="outline" className="bg-emerald-50 text-emerald-600 border-emerald-200">
+                                Confirmed
+                              </Badge>
+                            </div>
 
                             <div className="mb-4 text-sm">
                               <div className="flex items-center text-gray-600 mb-1">

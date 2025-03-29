@@ -63,13 +63,17 @@ const cosineSimilarityTensor = (vec1: tf.Tensor1D, vec2: tf.Tensor1D): number =>
   return (norm1 && norm2) ? dotProduct / (norm1 * norm2) : 0;
 };
 
-export async function GET(request: Request, context?: { params?: { userId?: string } }) {
+export async function GET(
+  request: Request,
+  // Workaround: cast the context to any to avoid type conflicts.
+  context: any
+) {
   try {
     // Connect to the database.
     await dbConnect();
 
-    // Safely extract userId from context.
-    const userId = context?.params?.userId;
+    // Extract userId from context.
+    const { userId } = context.params;
     if (!userId) {
       return NextResponse.json({ error: "UserId not provided in the URL." }, { status: 400 });
     }
