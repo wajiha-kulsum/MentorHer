@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../../../myComponents/common/Navbar";
+import Navbar from "@/myComponents/Navbar";
 import ProfileHeader from "../../../myComponents/profile-mentee/ProfileHeader";
 import ProfileAbout from "../../../myComponents/profile-mentee/ProfileAbout";
 import ProfileSkills from "../../../myComponents/profile-mentee/ProfileSkills";
@@ -91,7 +91,7 @@ const MenteeProfile = () => {
 
   return (
     <div className="min-h-screen bg-background/40">
-      <Navbar user={mockCurrentUser} />
+      <Navbar  />
 
       <main className="container py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
