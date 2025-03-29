@@ -24,7 +24,7 @@ const MentorSchema = new Schema(
         day: { type: String },
         startTime: { type: String },
         endTime: { type: String },
-        booked:{type: Boolean , default:false, required:false}
+ 
       },
     ],
     mentorshipExperience: { type: String },

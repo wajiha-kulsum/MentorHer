@@ -97,22 +97,12 @@ const MenteeProfile = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <ProfileHeader
-              mentor={{
-                id: mentee.id,
-                fullName: mentee.fullName,
-                profilePhoto: mentee.profilePhoto,
-                currentRole: mentee.currentRole,
-                company: mentee.company,
-                location: mentee.location,
-                linkedinUrl: mentee.linkedinUrl,
-              }}
-              isOwnProfile={isOwnProfile}
+
             />
 
             <ProfileAbout
-              about={mentee.about || ""}
-              isOwnProfile={isOwnProfile}
-              onEdit={() => handleEditClick("About")}
+            
+              
             />
 
             <Card className="mb-6 overflow-hidden border-2 border-accent/30">
@@ -153,18 +143,14 @@ const MenteeProfile = () => {
             </Card>
 
             <ProfileSkills
-              categories={mentee.skillCategories || []}
-              isOwnProfile={isOwnProfile}
-              onEdit={() => handleEditClick("Skills")}
+           
             />
           </div>
 
           <div className="lg:col-span-1">
             <div className="sticky top-8">
               <ProfileSidebar
-                languages={mentee.languages || []}
-                education={mentee.education || []}
-                profileViewCount={mentee.profileViewCount || 0}
+              
               />
 
               {/* Areas of Interest Card */}

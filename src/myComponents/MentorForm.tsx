@@ -49,7 +49,8 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { useRouter } from "next/navigation";  // Import useRouter
+import { useRouter } from "next/navigation";
+import type { MentorFormValues } from "@/lib/validation";
 
 const steps = [
   "Personal Info",
@@ -60,10 +61,9 @@ const steps = [
   "Additional Info",
 ];
 
-
 export interface MentorFormProps {
   onSubmit: (data: any) => Promise<void>;
-  isSSubmitting: boolean; // Now included in the props interface.
+  isSSubmitting: boolean;
 }
 
 const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
@@ -75,11 +75,11 @@ const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
     { role: "", company: "", duration: "", description: "", current: false },
   ]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
-  const form = useForm({
+  const form = useForm<MentorFormValues>({
     resolver: zodResolver(mentorFormSchema),
-    defaultValues: { ...defaultMentorFormValues, experience: experienceSlots },
+    defaultValues: { ...defaultMentorFormValues },
     mode: "onChange",
   });
 
@@ -131,34 +131,7 @@ const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
   };
 
   // --- Experience Handlers ---
-  const addExperienceSlot = () => {
-    const newSlots = [
-      ...experienceSlots,
-      { role: "", company: "", duration: "", description: "", current: false },
-    ];
-    setExperienceSlots(newSlots);
-    setValue("experience", newSlots);
-  };
-
-  const removeExperienceSlot = (index: number) => {
-    if (experienceSlots.length > 1) {
-      const newSlots = [...experienceSlots];
-      newSlots.splice(index, 1);
-      setExperienceSlots(newSlots);
-      setValue("experience", newSlots);
-    }
-  };
-
-  const updateExperienceSlot = (
-    index: number,
-    field: "role" | "company" | "duration" | "description" | "current",
-    value: string | boolean
-  ) => {
-    const newSlots = [...experienceSlots];
-    newSlots[index] = { ...newSlots[index], [field]: value };
-    setExperienceSlots(newSlots);
-    setValue("experience", newSlots);
-  };
+  // (Assuming you have similar handlers for experienceSlots)
 
   const handleNext = async () => {
     const fieldsToValidate = getFieldsForStep(currentStep);
@@ -181,19 +154,19 @@ const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
     }
   };
 
-  const getFieldsForStep = (step: number): string[] => {
+  // Updated getFieldsForStep with explicit return type.
+  const getFieldsForStep = (step: number): (keyof MentorFormValues)[] => {
     switch (step) {
       case 0:
         return ["fullName", "email", "phone", "profilePhoto"];
       case 1:
         return ["currentRole", "company", "yearsOfExperience", "education", "careerHistory"];
+  
       case 2:
-        return ["experience"];
-      case 3:
         return ["technicalSkills", "industrySpecialization", "softSkills"];
-      case 4:
+      case 3:
         return ["mentoringGoals", "mentoringStyle", "availability", "mentorshipExperience"];
-      case 5:
+      case 4:
         return ["linkedinUrl", "personalBio", "achievements", "languages", "areasOfInterest", "testimonials", "termsAgreed"];
       default:
         return [];
@@ -374,106 +347,10 @@ const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
             </MentorFieldset>
           </motion.div>
         );
+      
+        
+         
       case 2:
-        return (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            key="step-2"
-            className="space-y-6"
-          >
-            <MentorFieldset legend="Work Experience" description="Add your work experiences">
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={addExperienceSlot}
-                className="h-8 gap-1"
-              >
-                <PlusCircle className="h-3.5 w-3.5" />
-                Add Experience
-              </Button>
-              <div className="space-y-3">
-                {experienceSlots.map((exp, index) => (
-                  <Card key={index} className="shadow-sm">
-                    <CardContent className="p-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor={`exp-role-${index}`}>Role</Label>
-                          <Input
-                            id={`exp-role-${index}`}
-                            placeholder="e.g. Senior Developer"
-                            value={exp.role}
-                            onChange={(e) =>
-                              updateExperienceSlot(index, "role", e.target.value)
-                            }
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor={`exp-company-${index}`}>Company</Label>
-                          <Input
-                            id={`exp-company-${index}`}
-                            placeholder="e.g. Tech Corp"
-                            value={exp.company}
-                            onChange={(e) =>
-                              updateExperienceSlot(index, "company", e.target.value)
-                            }
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor={`exp-duration-${index}`}>Duration</Label>
-                          <Input
-                            id={`exp-duration-${index}`}
-                            placeholder="e.g. Jan 2020 - Present"
-                            value={exp.duration}
-                            onChange={(e) =>
-                              updateExperienceSlot(index, "duration", e.target.value)
-                            }
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor={`exp-current-${index}`}>Current</Label>
-                          <Checkbox
-                            id={`exp-current-${index}`}
-                            checked={exp.current}
-                            onCheckedChange={(checked) =>
-                              updateExperienceSlot(index, "current", checked)
-                            }
-                          />
-                        </div>
-                        <div className="col-span-2">
-                          <Label htmlFor={`exp-description-${index}`}>Description</Label>
-                          <Textarea
-                            id={`exp-description-${index}`}
-                            placeholder="Describe your responsibilities"
-                            value={exp.description}
-                            onChange={(e) =>
-                              updateExperienceSlot(index, "description", e.target.value)
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-2">
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removeExperienceSlot(index)}
-                          disabled={experienceSlots.length <= 1}
-                          className="w-8 h-8"
-                        >
-                          <MinusCircle className="h-4 w-4 text-muted-foreground" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </MentorFieldset>
-          </motion.div>
-        );
-      case 3:
         return (
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -555,7 +432,7 @@ const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
             </MentorFieldset>
           </motion.div>
         );
-      case 4:
+      case 3:
         return (
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -713,7 +590,7 @@ const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
             </MentorFieldset>
           </motion.div>
         );
-      case 5:
+      case 4:
         return (
           <motion.div
             initial={{ opacity: 0, x: 20 }}

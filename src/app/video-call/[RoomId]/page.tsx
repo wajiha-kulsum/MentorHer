@@ -4,11 +4,14 @@ import { useParams } from "next/navigation";
 
 const RoomPage: React.FC = () => {
   const { RoomId } = useParams();
+  // Convert RoomId to a string, defaulting to an empty string if undefined
+  const roomId: string = Array.isArray(RoomId) ? RoomId[0] : RoomId ?? "";
+  
   const [userId, setUserId] = useState("");
   const [username, setUserName] = useState("");
   const meetingRef = useRef<HTMLDivElement>(null);
 
-  console.log("RoomId from params:", RoomId);
+  console.log("RoomId from params:", roomId);
 
   // Fetch user profile on mount
   useEffect(() => {
@@ -33,16 +36,16 @@ const RoomPage: React.FC = () => {
   // Initialize the meeting once dependencies are ready.
   useEffect(() => {
     console.log("Checking initialization dependencies:", {
-      RoomId,
+      roomId,
       userId,
       username,
       container: meetingRef.current,
     });
-    if (RoomId && userId && username && meetingRef.current) {
+    if (roomId && userId && username && meetingRef.current) {
       const initMeeting = async (element: HTMLDivElement) => {
         console.log(
           "Initializing meeting with RoomId:",
-          RoomId,
+          roomId,
           "userId:",
           userId,
           "username:",
@@ -57,12 +60,11 @@ const RoomPage: React.FC = () => {
         console.log("Generating kit token with parameters:", {
           AppId,
           ServerSecret,
-          RoomId,
+          roomId,
           userId,
           username,
         });
         
-        // Ensure username is valid
         if (!username) {
           console.error("Username is empty! Cannot generate kit token.");
           return;
@@ -72,11 +74,11 @@ const RoomPage: React.FC = () => {
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
           AppId,
           ServerSecret,
-          RoomId,
+          roomId,
           userId,
           username
         );
-        console.log("Generated kit token:", kitToken); // Log token for debugging
+        console.log("Generated kit token:", kitToken);
         
         const zc = ZegoUIKitPrebuilt.create(kitToken);
         zc.joinRoom({
@@ -84,11 +86,11 @@ const RoomPage: React.FC = () => {
           sharedLinks: [
             {
               name: "Copy Link",
-              url: `https://localhost:3000/video-call/${RoomId}`,
+              url: `https://localhost:3000/video-call/${roomId}`,
               scenario: {
                 mode: ZegoUIKitPrebuilt.OneONoneCall,
               },
-            },
+            } as any,
           ],
         });
         console.log("Meeting initialized");
@@ -98,7 +100,7 @@ const RoomPage: React.FC = () => {
     } else {
       console.log("Meeting initialization pending missing parameters");
     }
-  }, [RoomId, userId, username]);
+  }, [roomId, userId, username]);
 
   return (
     <div>

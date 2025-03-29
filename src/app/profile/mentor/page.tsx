@@ -139,9 +139,7 @@ const MentorProfile = () => {
             />
             
             <ProfileAbout 
-              about={mentor.about} 
-              isOwnProfile={isOwnProfile}
-              onEdit={() => handleEditClick("About")}
+           
             />
             
             <ProfileExperience 
@@ -152,26 +150,18 @@ const MentorProfile = () => {
             />
             
             <ProfileSkills 
-              categories={mentor.skillCategories}
-              isOwnProfile={isOwnProfile}
-              onEdit={() => handleEditClick("Skills")}
+        
             />
             
             <ProfileMentorship 
-              mentorship={mentor.mentorship}
-              isOwnProfile={isOwnProfile}
-              onEdit={() => handleEditClick("Mentorship")}
+       
             />
           </div>
           
           <div className="lg:col-span-1">
             <div className="sticky top-8">
               <ProfileSidebar 
-                languages={mentor.languages}
-                achievements={mentor.achievements}
-                mentorshipExperience={mentor.mentorshipExperience}
-                education={mentor.education}
-                profileViewCount={mentor.profileViewCount}
+     
               />
             </div>
           </div>
