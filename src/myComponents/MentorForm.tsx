@@ -60,11 +60,13 @@ const steps = [
   "Additional Info",
 ];
 
-interface MentorFormProps {
-  onSubmit?: (data: any) => void;
+
+export interface MentorFormProps {
+  onSubmit: (data: any) => Promise<void>;
+  isSSubmitting: boolean; // Now included in the props interface.
 }
 
-const MentorForm = ({ onSubmit }: MentorFormProps) => {
+const MentorForm: React.FC<MentorFormProps> = ({ onSubmit, isSSubmitting }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [availabilitySlots, setAvailabilitySlots] = useState<any[]>([
     { day: "", startTime: "", endTime: "" },
