@@ -99,6 +99,16 @@ export default function Navbar() {
                 >
                   Become a Mentor
                 </Link>
+
+                <Link
+                  href="/chatbot"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Chatbot
+                </Link>
+
+
                 {user && (
                   <Link
                     href={`/recommendations/${user._id}`}
@@ -107,19 +117,21 @@ export default function Navbar() {
                   >
                     Recommend mentors
                   </Link>
+
+                  
                 )}
               </div>
             )}
           </div>
 
-          <Link href="/create-group" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
+          <Link href="/forum" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
             <Users size={20} />
             <span>Community</span>
           </Link>
 
-          <Link href="/events" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
+          <Link href="/mentee-dashboard" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
             <Calendar size={20} />
-            <span>Events</span>
+            <span>Dashboard</span>
           </Link>
         </div>
 
