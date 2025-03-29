@@ -112,14 +112,14 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/create-group" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
+          <Link href="/forum" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
             <Users size={20} />
             <span>Community</span>
           </Link>
 
-          <Link href="/events" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
+          <Link href="/mentee-dashboard" className="text-gray-700 hover:text-purple-600 transition-colors flex items-center gap-3 text-base font-medium">
             <Calendar size={20} />
-            <span>Events</span>
+            <span>Dashboard</span>
           </Link>
         </div>
 
