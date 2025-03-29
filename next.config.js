@@ -32,8 +32,10 @@ const nextConfig = {
   },
   experimental: {
     // @ts-ignore: nextConfig.experimental.optimizeFonts is not officially typed but works at runtime.
+    outputFileTracingExcludes: {
+      '*': ['node_modules/**'],
     optimizeFonts: false,
-  },
-};
+  }},
+}
 
 module.exports = nextConfig;
