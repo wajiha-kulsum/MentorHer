@@ -1,10 +1,6 @@
 "use client";
-<<<<<<< HEAD
-import React, { useState } from 'react';
-=======
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
->>>>>>> d1609926c173653fb02484a4d786ffbb329fabcd
 import Navigation from '../../myComponents/mentee-dashboard/Navigation';
 import StatsCard from '../../myComponents/mentee-dashboard/StatsCard';
 import SessionCard from '../../myComponents/mentee-dashboard/SessionsCard';

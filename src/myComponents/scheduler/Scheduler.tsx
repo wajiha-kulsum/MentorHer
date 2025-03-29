@@ -1,139 +1,174 @@
-"use client";
-import Footer from '../Footer';
-import Hero from './Hero';
-import MentorCard from './MentorCard';
-import Navbar from '../Navbar';
+"use client"
+
+import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Image from "next/image"
+import Navbar from "../Navbar"
+import Footer from "../Footer"
+
+interface MentorCardProps {
+  name: string
+  role: string
+  company: string
+  expertise: string[]
+  isAvailable: boolean
+  rating: number
+  imageUrl: string
+  calendarLink: string
+  delay?: number
+}
+
+function MentorCard(props: MentorCardProps) {
+  return (
+    <div className="border border-white/30 rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/25 backdrop-blur-xl hover:bg-white/35 hover:scale-[1.03] group">
+      <div className="w-full h-56 relative mb-5 rounded-lg overflow-hidden shadow-inner">
+        <Image
+          src={props.imageUrl || "/mentors/default.jpg"}
+          alt={props.name}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      </div>
+      <h3 className="text-xl font-semibold text-center">{props.name}</h3>
+      <p className="text-center text-sm mt-1">
+        {props.role} @ {props.company}
+      </p>
+      <div className="my-3 p-2 rounded-lg bg-white/30 backdrop-blur-md">
+        <p className="text-center text-xs text-gray-700">Expertise: {props.expertise.join(", ")}</p>
+      </div>
+      <div className="flex justify-between items-center mb-4 px-2">
+        <p
+          className={`${props.isAvailable ? "text-green-600 bg-green-100/70" : "text-red-500 bg-red-100/70"} px-3 py-1 rounded-full text-sm backdrop-blur-sm`}
+        >
+          {props.isAvailable ? "Available" : "Not Available"}
+        </p>
+        <p className="text-yellow-600 bg-yellow-100/70 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
+          ⭐ {props.rating}
+        </p>
+      </div>
+      <a
+        href={props.calendarLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-center bg-purple-600/80 text-white py-3 rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-md hover:shadow-lg backdrop-blur-sm"
+      >
+        Schedule
+      </a>
+    </div>
+  )
+}
 
 const mentors = [
   {
-    id: '1',
-    name: 'Sarah Johnson',
-    role: 'Senior Developer',
-    company: 'Google',
-    expertise: ['React', 'TypeScript', 'Node.js'],
+    name: "Sarah Johnson",
+    role: "Senior Developer",
+    company: "Google",
+    expertise: ["React", "TypeScript", "Node.js"],
     isAvailable: true,
     rating: 4.8,
-    image: '/mentors/sarah.png', 
-    calendarLink: 'https://calendar.google.com/calendar/u/0/r/eventedit'
+    imageUrl: "/mentors/sarah.png",
+    calendarLink: "https://calendar.google.com/",
   },
   {
-    id: '2',
-    name: 'Michael Lee',
-    role: 'Data Scientist',
-    company: 'Facebook',
-    expertise: ['Python', 'TensorFlow', 'Machine Learning'],
-    isAvailable: false,
-    rating: 4.6,
-    imageUrl: '/mentors/micheal.png',
-    calendarLink: 'https://calendar.google.com/calendar/u/0/r/eventedit'
-  },
-  {
-    id: '3',
-    name: 'Emily Carter',
-    role: 'UX Designer',
-    company: 'Airbnb',
-    expertise: ['Figma', 'UI/UX', 'Design Thinking'],
+    name: "Emily Carter",
+    role: "UX Designer",
+    company: "Airbnb",
+    expertise: ["Figma", "UI/UX", "Design Thinking"],
     isAvailable: true,
     rating: 4.9,
-    imageUrl: '/mentors/emily.png',
-    calendarLink: 'https://calendar.google.com/calendar/u/0/r/eventedit'
+    imageUrl: "/mentors/emily.png",
+    calendarLink: "https://calendar.google.com/",
   },
   {
-    id: '4',
-    name: 'David Kim',
-    role: 'DevOps Engineer',
-    company: 'Amazon',
-    expertise: ['AWS', 'Docker', 'Kubernetes'],
+    name: "Michael Lee",
+    role: "Data Scientist",
+    company: "Facebook",
+    expertise: ["Python", "TensorFlow", "Machine Learning"],
+    isAvailable: false,
+    rating: 4.6,
+    imageUrl: "/mentors/michael.png",
+    calendarLink: "https://calendar.google.com/",
+  },
+  {
+    name: "David Kim",
+    role: "DevOps Engineer",
+    company: "Amazon",
+    expertise: ["AWS", "Docker", "Kubernetes"],
     isAvailable: true,
     rating: 4.7,
-    imageUrl: '/mentors/david.png',
-    calendarLink: 'https://calendar.google.com/calendar/u/0/r/eventedit'
+    imageUrl: "/mentors/david.png",
+    calendarLink: "https://calendar.google.com/",
   },
   {
-    id: '5',
-    name: 'Sophia Brown',
-    role: 'Product Manager',
-    company: 'Netflix',
-    expertise: ['Agile', 'Product Strategy', 'JIRA'],
+    name: "Sophia Brown",
+    role: "Product Manager",
+    company: "Netflix",
+    expertise: ["Agile", "Product Strategy", "JIRA"],
     isAvailable: false,
     rating: 4.5,
-    imageUrl: '/mentors/sophia.png',
-    calendarLink: 'https://calendar.google.com/calendar/u/0/r/eventedit'
+    imageUrl: "/mentors/sophia.png",
+    calendarLink: "https://calendar.google.com/",
   },
   {
-    id: '6',
-    name: 'James Wilson',
-    role: 'Cybersecurity Specialist',
-    company: 'IBM',
-    expertise: ['Cybersecurity', 'Network Security', 'Penetration Testing'],
+    name: "James Wilson",
+    role: "Cybersecurity Specialist",
+    company: "IBM",
+    expertise: ["Cybersecurity", "Network Security", "Penetration Testing"],
     isAvailable: true,
     rating: 4.8,
-    imageUrl: '/mentors/james.png',
-    calendarLink: 'https://calendar.google.com/calendar/u/0/r/eventedit'
-  }
-];
+    imageUrl: "/mentors/james.png",
+    calendarLink: "https://calendar.google.com/",
+  },
+]
 
-export default function Scheduler() {
+export default function SchedulerPage() {
   return (
-    <div className="scheduler-container bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 min-h-screen">
+    <div className="scheduler-container min-h-screen relative overflow-hidden">
+      {/* Animated background with more visible soft blurred circles */}
+      <div className="fixed inset-0 z-[-1] bg-gradient-to-br from-purple-200 via-pink-100 to-blue-200">
+        <div className="absolute -top-40 -left-40 w-[70rem] h-[70rem] bg-purple-500/40 rounded-full blur-[120px] animate-pulse-slow"></div>
+        <div className="absolute top-1/3 right-0 w-[60rem] h-[60rem] bg-pink-500/40 rounded-full blur-[120px] animate-pulse-slow animation-delay-2000"></div>
+        <div className="absolute bottom-0 left-1/4 w-[70rem] h-[70rem] bg-blue-500/40 rounded-full blur-[120px] animate-pulse-slow animation-delay-4000"></div>
+        <div className="absolute top-2/3 right-1/4 w-[55rem] h-[55rem] bg-purple-400/35 rounded-full blur-[120px] animate-pulse-slow animation-delay-3000"></div>
+        <div className="absolute top-1/4 left-1/3 w-[40rem] h-[40rem] bg-indigo-400/30 rounded-full blur-[100px] animate-pulse-slow animation-delay-1000"></div>
+      </div>
+
       <Navbar />
-      <Hero />
 
-      <div className="container mx-auto px-4 py-12">
-        <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 mb-8">Find Your Mentor</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mentors.map((mentor, index) => (
-            <MentorCard 
-              key={mentor.id} 
-              {...mentor} 
-              imageUrl={mentor.imageUrl || mentor.image || '/default-mentor.png'} 
-              delay={index * 100} 
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* How It Works Section */}
-      <div className="text-center my-16 mt-30">
-        <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 mb-6">How It Works</h2>
-        <p className="mb-8 text-lg text-gray-600">Connect with experienced women in tech for personalized mentorship that fits your schedule and career goals.</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {['Find Your Mentor', 'Book a Session', 'Grow Your Career'].map((title, index) => (
-            <div key={index} className="p-8 bg-white border rounded-lg shadow-xl transition-transform transform hover:scale-105">
-              <h3 className="text-2xl font-semibold mb-4 text-purple-600">{index + 1}. {title}</h3>
-              <p className="text-gray-700">{index === 0 ? 'Browse our community of women tech leaders and find the perfect match for your goals.' : index === 1 ? 'Schedule a time that works for both of you with our integrated calendar system.' : 'Get personalized guidance, feedback, and support to advance in your tech journey.'}</p>
-            </div> 
-          ))}
-        </div>
-      </div> 
-
-      {/* Community Feedback Section */}
-      <div className="text-center my-16 mt-30">
-        <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-6">What Our Community Says</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[
-            {
-              quote: 'Finding a mentor who understood the unique challenges women face in tech completely changed my career trajectory. I\'m now leading my own team!',
-              name: 'Emily Chen',
-              role: 'Senior Developer'
-            },
-            {
-              quote: 'The mentorship I received gave me the confidence to speak up in meetings and pursue the promotion I deserved. Best decision I\'ve made for my career.',
-              name: 'Jessica Williams',
-              role: 'Product Manager'
-            }
-          ].map((testimonial, index) => (
-            <div key={index} className="p-8 bg-white border rounded-lg shadow-xl transform transition-transform hover:scale-105">
-              <p className="italic text-gray-700 mb-4">"{testimonial.quote}"</p>
-              <p className="font-semibold text-purple-600">{testimonial.name}</p>
-              <p className="text-sm text-gray-500">{testimonial.role}</p>
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-lg border border-white/30 shadow-2xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-center">
+              Connect with <span className="text-purple-600">Women in Tech</span>
+            </h1>
+            <p className="text-lg mb-8 text-gray-800 text-center max-w-2xl mx-auto">
+              Personalized mentorship to accelerate your career growth. Find the perfect mentor to guide you through
+              your tech journey.
+            </p>
+            <div className="flex justify-center">
+              <Button className="bg-purple-600/90 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm px-6 py-6">
+                Browse All Mentors <ArrowRight size={18} className="ml-2" />
+              </Button>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Mentors Grid Section */}
+      <section className="relative px-4 pb-24">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Our Featured Mentors</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {mentors.map((mentor, index) => (
+              <MentorCard key={index} {...mentor} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
-  );
+  )
 }
+

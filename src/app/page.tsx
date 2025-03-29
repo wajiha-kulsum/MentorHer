@@ -16,31 +16,10 @@ const Index = () => {
   return (     
     // <NotificationProvider>
       <div className="relative">
-        {/* Top Right Notifications */}
-        {/* <TopRightNotifications /> */}
-
         {/* Navbar */}
         <Navbar />
-
-        {/* Page Components */}
         <Gradient />
-        {/* <AICareerPathGenerator /> */}
-        <EventsCalendar />
-        <FAQAccordion />
         <AllComponents />
-
-
-        {/* Notification Components */}
-        {/* <div className="container mx-auto p-6 grid md:grid-cols-2 gap-6">
-          <SendNotification              
-            currentUserId="user123"              
-            currentUserName="Alex Johnson"              
-            mentorId="mentor456"
-          />
-          <NotificationList />
-        </div> */}
-
-        {/* Footer */}
         <Footer />
       </div>
     /* </NotificationProvider> */

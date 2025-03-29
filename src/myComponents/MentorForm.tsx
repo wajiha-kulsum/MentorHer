@@ -747,7 +747,7 @@ const MentorForm = ({ onSubmit }: MentorFormProps) => {
                       <Textarea placeholder="Write a short introduction about yourself" {...field} />
                     </FormControl>
                     <FormDescription>
-                      This will be displayed on your mentor profile
+                      This will be displayed on your mentor profiletext-white
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

@@ -19,14 +19,13 @@ const AllComponents = () => {
         <div className="absolute top-2/3 right-1/4 w-[30rem] h-[30rem] bg-purple-500/15 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Navbar */}
-      <Navbar />
 
       {/* Main Sections */}
       <Hero />
       <Contact />
-     
-<ContactUs/>
+      <EventsCalendar/>
+      <FAQAccordion/>
+      <ContactUs/>
 
       {/* Footer */}
 
