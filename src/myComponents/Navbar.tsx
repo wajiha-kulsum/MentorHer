@@ -99,6 +99,16 @@ export default function Navbar() {
                 >
                   Become a Mentor
                 </Link>
+
+                <Link
+                  href="/chatbot"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Chatbot
+                </Link>
+
+
                 {user && (
                   <Link
                     href={`/recommendations/${user._id}`}
@@ -107,6 +117,8 @@ export default function Navbar() {
                   >
                     Recommend mentors
                   </Link>
+
+                  
                 )}
               </div>
             )}

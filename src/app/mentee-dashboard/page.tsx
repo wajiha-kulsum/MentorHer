@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import Navigation from '../../myComponents/mentee-dashboard/Navigation';
 import StatsCard from '../../myComponents/mentee-dashboard/StatsCard';
 import SessionCard from '../../myComponents/mentee-dashboard/SessionsCard';
@@ -11,6 +12,7 @@ import {
   Users, Calendar, Clock, Star, 
   BookOpen, Search, Bell, Calendar as CalendarIcon 
 } from 'lucide-react';
+import Navbar from '@/myComponents/Navbar';
 
 const MenteeDashboard = () => {
   const router = useRouter();
@@ -23,7 +25,6 @@ const MenteeDashboard = () => {
       try {
         const res = await fetch('/api/auth/menteedata');
         const json = await res.json();
-        // Check if mentee data exists
         if (json.success && json.data) {
           setMenteeData(json.data);
         } else {
@@ -39,87 +40,149 @@ const MenteeDashboard = () => {
     fetchMenteeData();
   }, [router]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        when: "beforeChildren"
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full"
+        />
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-pastel-background flex flex-col">
-      <Navigation />
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 pt-20">
+      {/* Subtle floating elements */}
+      <motion.div 
+        animate={{
+          y: [0, -15, 0],
+          x: [0, 10, 0],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+        className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-100/20 rounded-full mix-blend-overlay filter blur-xl"
+      />
+      <motion.div 
+        animate={{
+          y: [0, 20, 0],
+          x: [0, -15, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+        className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-blue-100/20 rounded-full mix-blend-overlay filter blur-xl"
+      />
+
+      <Navbar/>
       
-      <main className="flex-1 px-6 py-8 max-w-7xl mx-auto w-full">
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">Mentee Dashboard</h2>
-            <p className="text-gray-600">Track your mentorship journey and upcoming sessions</p>
-          </div>
-          
-          <div className="flex gap-3">
-            <Button className="bg-white text-gray-800 border hover:bg-gray-50">
-              Find Mentors
-            </Button>
-            <Button className="bg-gradient-to-r from-pastel-purple to-pastel-pink hover:opacity-90">
-              Browse Resources
-            </Button>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatsCard 
-            icon={Users} 
-            label="My Mentors" 
-            value={3} 
-            iconColor="text-purple-500"
-          />
-          <StatsCard 
-            icon={CalendarIcon} 
-            label="Upcoming Sessions" 
-            value={2} 
-            iconColor="text-blue-500"
-          />
-          <StatsCard 
-            icon={Clock} 
-            label="Hours of Mentorship" 
-            value={12} 
-            iconColor="text-pink-500"
-          />
-          <StatsCard 
-            icon={BookOpen} 
-            label="Learning Paths" 
-            value={4} 
-            iconColor="text-teal-500"
-          />
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg p-5 shadow-sm border border-pastel-purple/20">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">My Sessions</h3>
-                <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
-                  View All
+      <motion.main 
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="flex-1 px-4 py-8 max-w-7xl mx-auto w-full"
+      >
+        {/* Header Section */}
+        <motion.div variants={itemVariants} className="bg-white/95 backdrop-blur-md rounded-xl shadow-sm p-6 mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Mentee Dashboard</h1>
+              <p className="text-gray-600">Track your mentorship journey and upcoming sessions</p>
+            </div>
+            
+            <div className="flex gap-3 w-full md:w-auto">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="w-full md:w-auto">
+                <Button className="w-full bg-white text-gray-800 border hover:bg-gray-50 backdrop-blur-sm">
+                  Find Mentors
                 </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="w-full md:w-auto">
+                <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white backdrop-blur-sm">
+                  Browse Resources
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+        
+        {/* Stats Cards */}
+        <motion.div variants={containerVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            { icon: Users, label: "My Mentors", value: 3, iconColor: "text-purple-500" },
+            { icon: CalendarIcon, label: "Upcoming Sessions", value: 2, iconColor: "text-blue-500" },
+            { icon: Clock, label: "Hours of Mentorship", value: 12, iconColor: "text-pink-500" },
+            { icon: BookOpen, label: "Learning Paths", value: 4, iconColor: "text-teal-500" }
+          ].map((stat, index) => (
+            <motion.div key={index} variants={itemVariants}>
+              <StatsCard 
+                icon={stat.icon} 
+                label={stat.label} 
+                value={stat.value} 
+                iconColor={stat.iconColor}
+               
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        {/* Main Content */}
+        <motion.div variants={containerVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Sessions and Mentors */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Sessions Card */}
+            <motion.div variants={itemVariants} className="bg-white/95 backdrop-blur-md rounded-xl shadow-sm p-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <h2 className="text-xl font-semibold text-gray-800">My Sessions</h2>
+                <motion.div whileHover={{ scale: 1.03 }}>
+                  <Button variant="outline" size="sm" className="text-purple-600 border-purple-200 backdrop-blur-sm">
+                    View All
+                  </Button>
+                </motion.div>
               </div>
               
-              <div className="flex border-b border-gray-200 mb-4">
-                <button
-                  className={`tab-button ${activeTab === 'upcoming' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('upcoming')}
-                >
-                  Upcoming
-                </button>
-                <button
-                  className={`tab-button ${activeTab === 'past' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('past')}
-                >
-                  Past Sessions
-                </button>
-                <button
-                  className={`tab-button ${activeTab === 'requested' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('requested')}
-                >
-                  Requested
-                </button>
+              <div className="flex border-b border-gray-200 mb-6">
+                {['upcoming', 'past', 'requested'].map((tab) => (
+                  <motion.button
+                    key={tab}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`px-4 py-2 text-sm font-medium ${activeTab === tab ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-500 hover:text-gray-700'}`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    {tab === 'upcoming' ? 'Upcoming' : tab === 'past' ? 'Past Sessions' : 'Requested'}
+                  </motion.button>
+                ))}
               </div>
               
               <div className="space-y-4">
@@ -135,6 +198,7 @@ const MenteeDashboard = () => {
                       time="3:00 PM - 4:00 PM"
                       description="Career advancement strategies for women in tech product management"
                       status="upcoming"
+                     
                     />
                     <SessionCard 
                       mentor={{
@@ -146,6 +210,7 @@ const MenteeDashboard = () => {
                       time="5:30 PM - 6:30 PM"
                       description="Code review of my portfolio project and feedback session"
                       status="upcoming"
+                    
                     />
                   </>
                 )}
@@ -162,6 +227,7 @@ const MenteeDashboard = () => {
                       time="2:00 PM - 3:00 PM"
                       description="How to conduct user interviews effectively for my research project"
                       status="completed"
+                     
                     />
                     <SessionCard 
                       mentor={{
@@ -173,35 +239,38 @@ const MenteeDashboard = () => {
                       time="4:00 PM - 5:00 PM"
                       description="Initial career guidance and goal-setting session"
                       status="completed"
+                     
                     />
                   </>
                 )}
                 
                 {activeTab === 'requested' && (
-                  <>
-                    <SessionCard 
-                      mentor={{
-                        name: "Rachel Green",
-                        image: "https://randomuser.me/api/portraits/women/76.jpg",
-                        expertise: "Tech Startup Founder"
-                      }}
-                      date="October 25, 2023"
-                      time="1:00 PM - 2:00 PM"
-                      description="Discussing my startup idea and getting initial feedback"
-                      status="upcoming"
-                    />
-                  </>
+                  <SessionCard 
+                    mentor={{
+                      name: "Rachel Green",
+                      image: "https://randomuser.me/api/portraits/women/76.jpg",
+                      expertise: "Tech Startup Founder"
+                    }}
+                    date="October 25, 2023"
+                    time="1:00 PM - 2:00 PM"
+                    description="Discussing my startup idea and getting initial feedback"
+                    status="upcoming"
+                    
+                  />
                 )}
               </div>
-            </div>
+            </motion.div>
             
-            <div className="bg-white rounded-lg p-5 shadow-sm border border-pastel-purple/20 mt-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">Recommended Mentors</h3>
-                <Button variant="ghost" size="sm" className="text-purple-600">
-                  <Search className="h-4 w-4 mr-1" />
-                  Find More
-                </Button>
+            {/* Recommended Mentors Card */}
+            <motion.div variants={itemVariants} className="bg-white/95 backdrop-blur-md rounded-xl shadow-sm p-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <h2 className="text-xl font-semibold text-gray-800">Recommended Mentors</h2>
+                <motion.div whileHover={{ scale: 1.03 }}>
+                  <Button variant="ghost" size="sm" className="text-purple-600 backdrop-blur-sm">
+                    <Search className="h-4 w-4 mr-1" />
+                    Find More
+                  </Button>
+                </motion.div>
               </div>
               
               <div className="space-y-4">
@@ -215,6 +284,7 @@ const MenteeDashboard = () => {
                     topics: ["Machine Learning", "Career Growth", "Leadership"],
                     availability: "Available"
                   }}
+                  
                 />
                 <MentorCard 
                   mentor={{
@@ -226,26 +296,35 @@ const MenteeDashboard = () => {
                     topics: ["Software Architecture", "Team Building", "Technical Interviews"],
                     availability: "Limited"
                   }}
+                  
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
           
-          <div>
-            <div className="bg-white rounded-lg p-5 shadow-sm border border-pastel-purple/20">
-              <div className="flex justify-between items-center mb-4">
+          {/* Right Column - Messages and Events */}
+          <div className="space-y-6">
+            {/* Messages Card */}
+            <motion.div variants={itemVariants} className="bg-white/95 backdrop-blur-md rounded-xl shadow-sm p-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div className="flex items-center">
-                  <h3 className="text-lg font-semibold text-gray-800">Messages</h3>
-                  <div className="ml-2 bg-purple-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <h2 className="text-xl font-semibold text-gray-800">Messages</h2>
+                  <motion.div 
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="ml-2 bg-purple-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                  >
                     3
-                  </div>
+                  </motion.div>
                 </div>
-                <Button variant="ghost" size="sm" className="text-purple-600">
-                  View All
-                </Button>
+                <motion.div whileHover={{ scale: 1.03 }}>
+                  <Button variant="ghost" size="sm" className="text-purple-600 backdrop-blur-sm">
+                    View All
+                  </Button>
+                </motion.div>
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <MessageCard 
                   sender={{
                     name: "Sophia Reynolds",
@@ -254,6 +333,7 @@ const MenteeDashboard = () => {
                   time="2 hours ago"
                   content="Hi! I've shared some resources for our upcoming session. Could you take a look before we meet?"
                   unread={true}
+                  
                 />
                 <MessageCard 
                   sender={{
@@ -263,23 +343,30 @@ const MenteeDashboard = () => {
                   time="Yesterday"
                   content="Looking forward to our session next week. Don't forget to bring your project questions!"
                   unread={false}
+                  
                 />
               </div>
-            </div>
+            </motion.div>
             
-            <div className="bg-white rounded-lg p-5 shadow-sm border border-pastel-purple/20 mt-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">Upcoming Events</h3>
-                <Button variant="ghost" size="sm" className="text-purple-600">
-                  <Bell className="h-4 w-4 mr-1" />
-                  Notify Me
-                </Button>
+            {/* Upcoming Events Card */}
+            <motion.div variants={itemVariants} className="bg-white/95 backdrop-blur-md rounded-xl shadow-sm p-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <h2 className="text-xl font-semibold text-gray-800">Upcoming Events</h2>
+                <motion.div whileHover={{ scale: 1.03 }}>
+                  <Button variant="ghost" size="sm" className="text-purple-600 backdrop-blur-sm">
+                    <Bell className="h-4 w-4 mr-1" />
+                    Notify Me
+                  </Button>
+                </motion.div>
               </div>
               
               <div className="space-y-4">
-                <div className="border border-pastel-purple/20 rounded-lg p-3">
-                  <div className="bg-gradient-to-r from-pastel-purple to-pastel-pink h-1 w-full rounded-full mb-3"></div>
-                  <h4 className="font-medium text-gray-800">Women in Tech Networking</h4>
+                <motion.div 
+                  whileHover={{ y: -3 }}
+                  className="border border-gray-200/30 rounded-lg p-4 hover:shadow-sm transition-shadow"
+                >
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-1 w-full rounded-full mb-3"></div>
+                  <h3 className="font-medium text-gray-800">Women in Tech Networking</h3>
                   <div className="flex items-center text-sm text-gray-500 mt-1">
                     <Calendar className="h-4 w-4 mr-2" />
                     October 20, 2023 • 6:00 PM
@@ -287,11 +374,14 @@ const MenteeDashboard = () => {
                   <p className="text-sm text-gray-600 mt-2">
                     Virtual networking event for women in tech across different roles and industries.
                   </p>
-                </div>
+                </motion.div>
                 
-                <div className="border border-pastel-purple/20 rounded-lg p-3">
-                  <div className="bg-gradient-to-r from-pastel-blue to-pastel-purple h-1 w-full rounded-full mb-3"></div>
-                  <h4 className="font-medium text-gray-800">Technical Interview Workshop</h4>
+                <motion.div 
+                  whileHover={{ y: -3 }}
+                  className="border border-gray-200/30 rounded-lg p-4 hover:shadow-sm transition-shadow"
+                >
+                  <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1 w-full rounded-full mb-3"></div>
+                  <h3 className="font-medium text-gray-800">Technical Interview Workshop</h3>
                   <div className="flex items-center text-sm text-gray-500 mt-1">
                     <Calendar className="h-4 w-4 mr-2" />
                     October 25, 2023 • 5:00 PM
@@ -299,12 +389,12 @@ const MenteeDashboard = () => {
                   <p className="text-sm text-gray-600 mt-2">
                     Learn effective strategies for technical interviews from experienced hiring managers.
                   </p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </main>
+        </motion.div>
+      </motion.main>
     </div>
   );
 };

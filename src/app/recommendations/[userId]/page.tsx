@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Navbar from "@/myComponents/Navbar";
 
 interface Mentor {
   userId: string;
@@ -94,6 +95,9 @@ const RecommendationsPage = () => {
         <div className="absolute bottom-0 left-1/4 w-[40rem] h-[40rem] bg-blue-600/20 rounded-full blur-3xl"></div>
         <div className="absolute top-2/3 right-1/4 w-[30rem] h-[30rem] bg-purple-500/15 rounded-full blur-3xl"></div>
       </div>
+
+      <Navbar/>
+
       <div className="bg-white/30 backdrop-blur-lg shadow-lg p-6 rounded-lg max-w-3xl w-full">
         <h1 className="text-2xl font-bold mb-4 text-center">Mentor Recommendations</h1>
         <ul className="space-y-4">
