@@ -6,13 +6,11 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // !! WARNING !!
-    // This allows production builds to successfully complete even if
-    // your project has TypeScript errors.
-    // !! WARNING !!
+    // Warning: This allows production builds to successfully complete even if your project has TypeScript errors.
     ignoreBuildErrors: true,
   },
   experimental: {
+    // @ts-ignore: 'optimizeFonts' is not defined in the type but works at runtime.
     optimizeFonts: false,
   },
 };
