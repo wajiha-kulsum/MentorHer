@@ -29,6 +29,9 @@ const nextConfig = {
       // !! WARNING !!
       ignoreBuildErrors: true,
     },
+    experimental: {
+      optimizeFonts: false,
+    },
   };
   
   module.exports = nextConfig;

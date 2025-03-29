@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
     // !! WARNING !!
     ignoreBuildErrors: true,
   },
+  experimental: {
+    optimizeFonts: false,
+  },
 };
 
 export default nextConfig;
