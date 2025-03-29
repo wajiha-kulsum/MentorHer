@@ -2,6 +2,7 @@ import React from 'react';
 import Gradient from '@/myComponents/Gradient';
 import Hero from '@/myComponents/Hero';
 import Contact from '@/myComponents/Contact';
+import ContactUs from './ContactUS';
 import Navbar from '@/myComponents/Navbar';
 import Footer from '@/myComponents/Footer';
 import { FAQAccordion } from '@/myComponents/FAQaccordion';
@@ -24,11 +25,11 @@ const AllComponents = () => {
       {/* Main Sections */}
       <Hero />
       <Contact />
-      <FAQAccordion />
-      <EventsCalendar />
+     
+<ContactUs/>
 
       {/* Footer */}
-      <Footer />
+
     </div>
   );
 };

@@ -100,25 +100,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
-              Gender
-            </label>
-            <select
-              id="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              className="w-full p-2 hover:border-violet-700 border-2 rounded-md mt-1"
-              required
-            >
-              <option value="" disabled>
-                Select Gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+          
 
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">

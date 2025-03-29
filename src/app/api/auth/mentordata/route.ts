@@ -1,4 +1,3 @@
-// app/api/mentor-profile/route.ts
 import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
 import Mentor2 from "@/models/Mentor2";
@@ -19,7 +18,10 @@ export async function GET(req: NextRequest) {
     }
 
     // Verify and decode the token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as JwtPayload;
     if (!decoded || !decoded.id) {
       return NextResponse.json(
         { success: false, error: "Invalid token" },
@@ -35,14 +37,12 @@ export async function GET(req: NextRequest) {
     // Log the mentor data to verify the output
     console.log("Fetched mentor data:", mentor);
 
+    // If mentor does not exist, redirect to /Become-mentor
     if (!mentor) {
-      return NextResponse.json(
-        { success: false, error: "Mentor profile not found" },
-        { status: 404 }
-      );
+      return NextResponse.redirect(new URL("/BecomeMentor", req.url));
     }
 
-    // Return the plain object data
+    // Return the mentor data if found
     return NextResponse.json({ success: true, data: mentor });
   } catch (error: any) {
     console.error("Error fetching mentor profile:", error);

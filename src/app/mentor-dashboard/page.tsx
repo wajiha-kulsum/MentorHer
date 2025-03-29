@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useRouter} from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/myComponents/common/Navbar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-// Mock data
+// Mock data for dashboard components
 const mentorAppointments = [
   {
     id: "1",
@@ -130,31 +130,61 @@ const upcomingSessions = [
 ];
 
 const MentorDashboard = () => {
-  const navigate = useRouter();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [mentorData, setMentorData] = useState<any>(null);
   const [appointments, setAppointments] = useState(mentorAppointments);
-  
-  // Mock functions to handle appointment actions
+
+  // Fetch mentor data on mount
+  useEffect(() => {
+    async function fetchMentorData() {
+      try {
+        const res = await fetch("/api/auth/mentordata");
+        const json = await res.json();
+        // Check if mentor exists
+        if (json.success && json.data) {
+          setMentorData(json.data);
+        } else {
+          // If mentor does not exist, redirect to BecomeMentor page
+          router.push("/BecomeMentor");
+        }
+      } catch (error) {
+        console.error("Error fetching mentor data:", error);
+        router.push("/BecomeMentor");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMentorData();
+  }, [router]);
+
+  // Show loading state while fetching data
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Dashboard action handlers
   const handleAccept = (id: string) => {
     setAppointments(appointments.map(app => 
-      app.id === id ? {...app, status: "accepted"} : app
+      app.id === id ? { ...app, status: "accepted" } : app
     ));
     toast.success("Appointment accepted", { 
       description: "The mentee has been notified of your acceptance."
     });
   };
-  
+
   const handleDecline = (id: string) => {
     setAppointments(appointments.map(app => 
-      app.id === id ? {...app, status: "declined"} : app
+      app.id === id ? { ...app, status: "declined" } : app
     ));
     toast.success("Appointment declined", { 
       description: "The mentee has been notified."
     });
   };
-  
+
   const handleComplete = (id: string) => {
     setAppointments(appointments.map(app => 
-      app.id === id ? {...app, status: "completed"} : app
+      app.id === id ? { ...app, status: "completed" } : app
     ));
     toast.success("Session marked as completed", {
       description: "Thank you for contributing to the community!"
@@ -169,31 +199,31 @@ const MentorDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar user={{ id: "1", fullName: "Sarah Johnson", profilePhoto: "https://randomuser.me/api/portraits/women/44.jpg" }} />
-      
+
       <main className="container py-8">
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-8">
           <div>
             <h1 className="text-3xl font-bold">Mentor Dashboard</h1>
             <p className="text-muted-foreground">Manage your mentorship activities and appointments</p>
           </div>
-          
+
           <div className="flex space-x-4">
             <Button 
-              onClick={() => navigate("/profile/1")} 
+              onClick={() => router.push("/profile/1")} 
               variant="outline" 
               className="flex items-center"
             >
               <Users className="mr-2 h-4 w-4" />
               View Public Profile
             </Button>
-            
+
             <Button className="flex items-center">
               <Calendar className="mr-2 h-4 w-4" />
               Set Availability
             </Button>
           </div>
         </div>
-        
+
         {/* Dashboard Overview */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
           <Card>
@@ -209,7 +239,7 @@ const MentorDashboard = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -223,7 +253,7 @@ const MentorDashboard = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -237,7 +267,7 @@ const MentorDashboard = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -252,7 +282,7 @@ const MentorDashboard = () => {
             </CardContent>
           </Card>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main content area */}
           <div className="lg:col-span-2">
@@ -271,7 +301,7 @@ const MentorDashboard = () => {
                   <TabsTrigger value="past">Past Sessions</TabsTrigger>
                 </TabsList>
               </div>
-              
+
               <TabsContent value="pending" className="mt-0">
                 <Card>
                   <CardHeader>
@@ -305,7 +335,7 @@ const MentorDashboard = () => {
                                 Pending
                               </Badge>
                             </div>
-                            
+
                             <div className="mb-4 text-sm">
                               <div className="flex items-center text-muted-foreground mb-1">
                                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -316,11 +346,11 @@ const MentorDashboard = () => {
                                 {appointment.time}
                               </div>
                             </div>
-                            
+
                             <div className="mb-4 p-3 bg-accent/30 rounded-md text-sm">
                               <p className="italic">"{appointment.message}"</p>
                             </div>
-                            
+
                             <div className="flex space-x-2 justify-end">
                               <Button 
                                 variant="outline" 
@@ -345,7 +375,7 @@ const MentorDashboard = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
-              
+
               <TabsContent value="upcoming" className="mt-0">
                 <Card>
                   <CardHeader>
@@ -379,7 +409,7 @@ const MentorDashboard = () => {
                                 Confirmed
                               </Badge>
                             </div>
-                            
+
                             <div className="mb-4 text-sm">
                               <div className="flex items-center text-muted-foreground mb-1">
                                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -390,11 +420,11 @@ const MentorDashboard = () => {
                                 {appointment.time}
                               </div>
                             </div>
-                            
+
                             <div className="mb-4 p-3 bg-accent/30 rounded-md text-sm">
                               <p className="italic">"{appointment.message}"</p>
                             </div>
-                            
+
                             <div className="flex space-x-2 justify-end">
                               <Button variant="outline" size="sm">
                                 <MessageSquare className="mr-1 h-4 w-4" />
@@ -412,7 +442,7 @@ const MentorDashboard = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
-              
+
               <TabsContent value="past" className="mt-0">
                 <Card>
                   <CardHeader>
@@ -480,7 +510,7 @@ const MentorDashboard = () => {
               </TabsContent>
             </Tabs>
           </div>
-          
+
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="space-y-6">
@@ -521,13 +551,12 @@ const MentorDashboard = () => {
                       </div>
                     ))}
                   </div>
-                  
                   <Button variant="outline" className="w-full mt-4">
                     View All Messages
                   </Button>
                 </CardContent>
               </Card>
-              
+
               {/* Calendar widget */}
               <Card>
                 <CardHeader>
@@ -555,13 +584,12 @@ const MentorDashboard = () => {
                       </div>
                     ))}
                   </div>
-                  
                   <Button variant="outline" className="w-full mt-4">
                     View Full Calendar
                   </Button>
                 </CardContent>
               </Card>
-              
+
               {/* Quick links */}
               <Card>
                 <CardHeader>
@@ -586,7 +614,7 @@ const MentorDashboard = () => {
           </div>
         </div>
       </main>
-      
+
       <footer className="border-t mt-20 bg-accent/5">
         <div className="container py-8 text-center text-sm text-muted-foreground">
           <p>© 2023 Women in Tech Mentorship Platform. All rights reserved.</p>

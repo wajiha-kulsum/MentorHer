@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -11,7 +11,8 @@ import MenteeForm from "../../myComponents/MenteeForm"; // Ensure your MentorFor
 const BecomeMentor: React.FC = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState(true);
+  const [menteeData, setMenteeData] = useState<any>(null);
   const handleSubmit = async (data: any) => {
     setIsSubmitting(true);
     try {
@@ -40,6 +41,40 @@ const BecomeMentor: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    async function fetchMenteeData() {
+      try {
+        const res = await fetch('/api/auth/menteedata');
+  
+        // If the response is unauthorized, redirect to login
+        if (res.status === 401) {
+          router.push('/auth/login');
+          return; // Stop further processing
+        }
+  
+        const json = await res.json();
+  
+        // Check if mentee data exists
+        if (json.success && json.data) {
+          setMenteeData(json.data);
+          router.push('/mentee-dashboard');
+        } else {
+          router.push('/Become-mentee');
+        }
+      } catch (error) {
+        console.error("Error fetching mentee data:", error);
+        router.push('/Become-mentee');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMenteeData();
+  }, [router]);
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}

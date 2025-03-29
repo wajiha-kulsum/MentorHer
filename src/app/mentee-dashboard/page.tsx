@@ -1,5 +1,10 @@
 "use client";
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+>>>>>>> d1609926c173653fb02484a4d786ffbb329fabcd
 import Navigation from '../../myComponents/mentee-dashboard/Navigation';
 import StatsCard from '../../myComponents/mentee-dashboard/StatsCard';
 import SessionCard from '../../myComponents/mentee-dashboard/SessionsCard';
@@ -12,7 +17,35 @@ import {
 } from 'lucide-react';
 
 const MenteeDashboard = () => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [menteeData, setMenteeData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('upcoming');
+
+  useEffect(() => {
+    async function fetchMenteeData() {
+      try {
+        const res = await fetch('/api/auth/menteedata');
+        const json = await res.json();
+        // Check if mentee data exists
+        if (json.success && json.data) {
+          setMenteeData(json.data);
+        } else {
+          router.push('/Become-mentee');
+        }
+      } catch (error) {
+        console.error("Error fetching mentee data:", error);
+        router.push('/Become-mentee');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMenteeData();
+  }, [router]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-pastel-background flex flex-col">

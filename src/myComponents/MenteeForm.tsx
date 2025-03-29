@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, InfoIcon, X } from "lucide-react";
+import { CalendarIcon, InfoIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -30,11 +32,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ImageUpload from "./ImageUpload";
 import MultiSelect from "./MultiSelect";
 import { Separator } from "../components/ui/separator";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import FormStepIndicator  from "./FormStepIndicator";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import FormStepIndicator from "./FormStepIndicator";
+import { useRouter } from "next/navigation";
+
+interface StepItem {
+  label: string;
+  description: string;
+}
 
 interface MenteeFormProps {
-  onSubmit: (data: MenteeFormValues) => void;
+  onSubmit: (data: MenteeFormValues) => Promise<void> | void;
   isSubmitting: boolean;
 }
 
@@ -42,6 +54,7 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const totalSteps = 4;
+  const router = useRouter();
 
   const steps: StepItem[] = [
     { label: "Personal Info", description: "Basic details" },
@@ -75,26 +88,29 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmitForm = (data: MenteeFormValues) => {
-    onSubmit(data);
+  const handleSubmitForm = async (data: MenteeFormValues) => {
+    await onSubmit(data);
+    router.push("/mentee-dashboard");
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={(e) => {
-        if (currentStep !== totalSteps - 1) {
-          e.preventDefault();
-          return false;
-        }
-        form.handleSubmit(handleSubmitForm)(e);
-      }} className="space-y-6">
+      <form
+        onSubmit={(e) => {
+          if (currentStep !== totalSteps - 1) {
+            e.preventDefault();
+            return false;
+          }
+          form.handleSubmit(handleSubmitForm)(e);
+        }}
+        className="space-y-6"
+      >
         <div className="mb-8">
-        <FormStepIndicator
-  steps={steps.map((step) => step.label)} // Pass only labels, not objects
-  currentStep={currentStep}
-  handleStepClick={handleStepChange}
-/>
-
+          <FormStepIndicator
+            steps={steps.map((step) => step.label)}
+            currentStep={currentStep}
+            handleStepClick={handleStepChange}
+          />
         </div>
 
         {/* Step 1: Personal Information */}
@@ -295,7 +311,7 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
                   <FormControl>
                     <MultiSelect
                       placeholder="Select your skills"
-                      options={technicalSkillOptions.map(skill => skill)}
+                      options={technicalSkillOptions.map((skill) => skill)}
                       selected={field.value || []}
                       onChange={field.onChange}
                     />
@@ -335,7 +351,7 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
                   <FormControl>
                     <MultiSelect
                       placeholder="Select areas you need guidance in"
-                      options={mentorshipAreaOptions.map(area => area)}
+                      options={mentorshipAreaOptions.map((area) => area)}
                       selected={field.value || []}
                       onChange={field.onChange}
                     />
@@ -381,10 +397,7 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
                 <FormItem>
                   <FormLabel>LinkedIn Profile URL (Optional)</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="https://linkedin.com/in/yourprofile"
-                      {...field}
-                    />
+                    <Input placeholder="https://linkedin.com/in/yourprofile" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -436,7 +449,7 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
                   <FormControl>
                     <MultiSelect
                       placeholder="Select languages you speak"
-                      options={languageOptions.map(language => language)}
+                      options={languageOptions.map((language) => language)}
                       selected={field.value || []}
                       onChange={field.onChange}
                     />
@@ -454,16 +467,12 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Terms and Conditions</FormLabel>
                     <FormDescription>
-                      By checking this box, you agree to our Terms of Service and
-                      Privacy Policy for the mentorship program.
+                      By checking this box, you agree to our Terms of Service and Privacy Policy for the mentorship program.
                     </FormDescription>
                   </div>
                   <FormMessage />
@@ -475,12 +484,7 @@ const MenteeForm = ({ onSubmit, isSubmitting }: MenteeFormProps) => {
 
         <div className="flex justify-between pt-6">
           {currentStep > 0 ? (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handlePrevious}
-              disabled={isSubmitting}
-            >
+            <Button type="button" variant="outline" onClick={handlePrevious} disabled={isSubmitting}>
               Previous
             </Button>
           ) : (
