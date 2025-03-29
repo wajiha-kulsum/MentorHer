@@ -29,6 +29,7 @@ export const mentorFormSchema = z.object({
     day: z.string(),
     startTime: z.string(),
     endTime: z.string(),
+    booked:z.boolean()
   })).min(1, "Please select at least one availability slot"),
   mentorshipExperience: z.string().optional(),
   

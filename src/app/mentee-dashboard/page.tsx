@@ -46,7 +46,15 @@ const MenteeDashboard = () => {
   return (
     <div className="min-h-screen bg-pastel-background flex flex-col">
       <Navigation />
-      
+      <div>
+      <div className="fixed inset-0 z-[-1] overflow-hidden">
+        <div className="absolute -top-40 -left-40 w-[40rem] h-[40rem] bg-purple-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 right-0 w-[35rem] h-[35rem] bg-pink-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-1/4 w-[40rem] h-[40rem] bg-blue-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-2/3 right-1/4 w-[30rem] h-[30rem] bg-purple-500/15 rounded-full blur-3xl"></div>
+      </div>
+
+ 
       <main className="flex-1 px-6 py-8 max-w-7xl mx-auto w-full">
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -55,7 +63,7 @@ const MenteeDashboard = () => {
           </div>
           
           <div className="flex gap-3">
-            <Button className="bg-white text-gray-800 border hover:bg-gray-50">
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg">
               Find Mentors
             </Button>
             <Button className="bg-gradient-to-r from-pastel-purple to-pastel-pink hover:opacity-90">
@@ -96,7 +104,7 @@ const MenteeDashboard = () => {
             <div className="bg-white rounded-lg p-5 shadow-sm border border-pastel-purple/20">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold text-gray-800">My Sessions</h3>
-                <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
+                <Button variant="outline" size="sm" className=" text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg">
                   View All
                 </Button>
               </div>
@@ -305,6 +313,7 @@ const MenteeDashboard = () => {
           </div>
         </div>
       </main>
+    </div>
     </div>
   );
 };

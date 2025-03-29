@@ -1,4 +1,5 @@
 import mongoose, { Schema, model, models } from "mongoose";
+import { boolean } from "zod";
 
 const MentorSchema = new Schema(
   {
@@ -23,6 +24,7 @@ const MentorSchema = new Schema(
         day: { type: String },
         startTime: { type: String },
         endTime: { type: String },
+        booked:{type: boolean , default:false, required:false}
       },
     ],
     mentorshipExperience: { type: String },

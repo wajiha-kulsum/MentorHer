@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import SchedulerPage from "@/myComponents/scheduler/Scheduler";
 
 interface Mentor {
   userId: string;
@@ -97,6 +98,8 @@ const RecommendationsPage = () => {
   }
 
   return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+<SchedulerPage></SchedulerPage>
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Mentor Recommendations</h1>
       <ul className="space-y-4">
@@ -125,6 +128,7 @@ const RecommendationsPage = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

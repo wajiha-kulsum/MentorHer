@@ -71,10 +71,12 @@ const ContactUs: React.FC = () => {
           {/* Left Column: Connect with Us & Support Information */}
           <div className="flex-1 space-y-8">
             <div className="text-center md:text-left">
-              <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-4">
-                Connect with MentorHer
+              <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-black">
+                Connect with       <span className="bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            MentorHer
+            </span>
               </h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto md:mx-0">
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto md:mx-0 mt-4">
                 We're here to support and empower women in their professional growth. Reach out and let's start a conversation.
               </p>
             </div>

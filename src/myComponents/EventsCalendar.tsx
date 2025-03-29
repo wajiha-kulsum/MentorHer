@@ -71,19 +71,216 @@ const upcomingEvents = [
     category: "Summit",
     isVirtual: false,
   },
-]
+];
+
+function RegistrationModal({ event, onClose, onRegister }) {
+  // 1) Pre-fill title, date, time from the selected event
+  const [formData, setFormData] = useState({
+    title: event.title || "",
+    date: event.date || "",
+    time: event.time || "",
+
+    fullName: "",
+    email: "",
+    phone: "",
+    isMentor: "", // "yes" or "no"
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Basic validation for all fields
+    if (
+      formData.fullName &&
+      formData.email &&
+      formData.phone &&
+      formData.isMentor
+    ) {
+      try {
+        const response = await fetch("/api/registerEvent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            // In a real application, userId would be retrieved from the authenticated user or token
+            userId: "dummyUserId",
+            eventId: event.id,
+            ...formData,
+          }),
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          setSubmitted(true);
+          onRegister(formData);
+        } else {
+          alert(data.error || "Registration failed");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Registration failed");
+      }
+    } else {
+      alert("Please fill in all the fields.");
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="bg-white rounded-lg p-8 max-w-lg w-full relative">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 text-2xl"
+        >
+          &times;
+        </button>
+        <h2 className="text-2xl font-bold mb-4">Register for {event.title}</h2>
+        {submitted ? (
+          <div className="text-green-600 text-lg">Registered Successfully!</div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            {/* Pre-filled fields */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Event Title</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                readOnly
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Event Date</label>
+              <input
+                type="text"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                readOnly
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Event Time</label>
+              <input
+                type="text"
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                readOnly
+              />
+            </div>
+
+            {/* User-input fields */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Are you a mentor?</label>
+              <div className="flex items-center">
+                <label className="mr-4">
+                  <input
+                    type="radio"
+                    name="isMentor"
+                    value="yes"
+                    onChange={handleChange}
+                    checked={formData.isMentor === "yes"}
+                    className="mr-1"
+                    required
+                  />
+                  Yes
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="isMentor"
+                    value="no"
+                    onChange={handleChange}
+                    checked={formData.isMentor === "no"}
+                    className="mr-1"
+                    required
+                  />
+                  No
+                </label>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
+            >
+              Register
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
 
 const EventsCalendar = () => {
-  const [showAll, setShowAll] = useState(false)
-  const visibleEvents = showAll ? upcomingEvents : upcomingEvents.slice(0, 3)
+  const [showAll, setShowAll] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const visibleEvents = showAll ? upcomingEvents : upcomingEvents.slice(0, 3);
+
+  const handleRegisterClick = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const handleModalClose = () => {
+    setSelectedEvent(null);
+  };
+
+  const handleRegistration = (formData) => {
+    console.log("Registered:", formData);
+    // Optionally close the modal or perform additional actions after registration.
+    // setSelectedEvent(null);
+  };
 
   return (
     <section id="events" className="py-20 px-4 relative overflow-hidden">
-      {/* Background gradient elements */}
-      {/* <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
-      <div className="absolute top-1/3 right-0 w-80 h-80 bg-pink-600/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div> */}
-
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary mb-4 backdrop-blur-sm">
@@ -131,7 +328,10 @@ const EventsCalendar = () => {
 
                 <div className="space-y-3">
                   <div className="flex items-start">
-                    <Calendar size={16} className="text-pink-500 mt-0.5 mr-2.5 flex-shrink-0" />
+                    <Calendar
+                      size={16}
+                      className="text-pink-500 mt-0.5 mr-2.5 flex-shrink-0"
+                    />
                     <div>
                       <p className="text-sm font-medium">{event.date}</p>
                       <p className="text-sm text-muted-foreground">{event.time}</p>
@@ -140,7 +340,9 @@ const EventsCalendar = () => {
 
                   <div className="flex items-center">
                     <Users size={16} className="text-blue-500 mr-2.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">{event.attendees} attending</p>
+                    <p className="text-sm text-muted-foreground">
+                      {event.attendees} attending
+                    </p>
                   </div>
 
                   <div className="flex items-center">
@@ -149,7 +351,10 @@ const EventsCalendar = () => {
                   </div>
                 </div>
                 <div className="mt-5 text-center">
-                  <button className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium">
+                  <button
+                    onClick={() => handleRegisterClick(event)}
+                    className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
+                  >
                     Register
                   </button>
                 </div>
@@ -170,9 +375,16 @@ const EventsCalendar = () => {
           )}
         </div>
       </div>
+
+      {selectedEvent && (
+        <RegistrationModal
+          event={selectedEvent}
+          onClose={handleModalClose}
+          onRegister={handleRegistration}
+        />
+      )}
     </section>
-  )
-}
+  );
+};
 
-export default EventsCalendar
-
+export default EventsCalendar;

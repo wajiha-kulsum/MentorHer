@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Column 1 */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">MentorConnect</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">MentorHer</h3>
             <p className="text-gray-600 mb-4">
               Empowering women through mentorship and professional growth.
             </p>
@@ -39,7 +39,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-600 hover:text-purple-600 transition-colors">Home</a></li>
+              <li><a href="/" className="text-gray-600 hover:text-purple-600 transition-colors">Home</a></li>
               <li><a href="#" className="text-gray-600 hover:text-purple-600 transition-colors">Services</a></li>
               <li><a href="#" className="text-gray-600 hover:text-purple-600 transition-colors">About Us</a></li>
               <li><a href="#" className="text-gray-600 hover:text-purple-600 transition-colors">Success Stories</a></li>
@@ -63,15 +63,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center text-gray-600">
                 <Mail className="mr-2 text-purple-600" size={18} />
-                contact@mentorconnect.com
+                contact@mentorher.com
               </li>
               <li className="flex items-center text-gray-600">
                 <Phone className="mr-2 text-purple-600" size={18} />
-                +1 (555) 123-4567
+                +918767281279
               </li>
               <li className="flex items-center text-gray-600">
                 <MapPin className="mr-2 text-purple-600" size={18} />
-                123 Mentor St, San Francisco
+           Marine Lines,Mumbai
               </li>
             </ul>
           </div>
@@ -82,7 +82,7 @@ export default function Footer() {
       <div className="w-full border-t border-gray-200 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} MentorConnect. All rights reserved.
+            © {new Date().getFullYear()} MentorHer. All rights reserved.
           </div>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-500 hover:text-purple-600 text-sm">Terms of Service</a>
