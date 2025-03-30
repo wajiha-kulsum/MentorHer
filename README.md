@@ -22,7 +22,7 @@ Key features include:
 
 ### Demo video of the project  
 
-[![Watch the video](https://github.com/user-attachments/assets/f03daf90-925d-404b-abf7-9cd0aab69adb)]
+[![Watch the video](https://github.com/user-attachments/assets/d90c066c-2650-4176-ae22-23e8e069d282)](https://github.com/user-attachments/assets/f03daf90-925d-404b-abf7-9cd0aab69adb)
 
 
 ### Captures of our website 📸
