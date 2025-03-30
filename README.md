@@ -1,6 +1,7 @@
 ## MentorHer: Women in Tech Mentorship Platform
 
-### Updated Youtube Video with no audio issues
+### Updated Youtube Video with no audio issues  
+
 [![Watch the video](https://github.com/user-attachments/assets/1054b93e-a3a1-41b5-80f1-7e5c4bcc3146)](https://youtu.be/jioho7wfhWI?si=M0XLIIkMc6rDxmAV)
 
 MentorHer is a platform connecting women professionals with experienced industry mentors. Using AI-driven matching, it pairs mentees with mentors based on career goals, skills, and aspirations for personalized guidance.
@@ -21,6 +22,7 @@ Key features include:
 
 ### Demo video of the project  
 
+[![Watch the video](https://github.com/user-attachments/assets/f03daf90-925d-404b-abf7-9cd0aab69adb)]
 
 
 ### Captures of our website 📸
