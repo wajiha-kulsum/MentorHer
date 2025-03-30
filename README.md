@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/996b9aad-8d6d-4075-a782-857a81b82618)## MentorHer: Women in Tech Mentorship Platform
+## MentorHer: Women in Tech Mentorship Platform
 
 MentorHer is a platform designed to connect women professionals with experienced industry mentors. Our goal is to provide a encouraging environment where women can make connections, receive guidance and upgrade in their careers through structured mentoring. Unlike other mentorship services, MentorHer uses AI technology to pair mentees with mentors who share similar career goals and skills they wish to develop. A key feature of MentorHer is its AI-driven matching system. This smart tool aligns mentees with the right mentors by looking at their skills, goals, and career paths. This approach helps mentees receive guidance that is specifically designed to cater their needs. We also offer an integrated scheduling tool that syncs with Google Calendar, allowing users to easily book their mentorship sessions without any timing conflicts, streamlining the whole process. For communication, MentorHer includes a built-in video calling feature using WebRTC. This enables real-time, direct conversations between mentors and mentees within the platform itself, ensuring a smooth and secure communication experience without needing any extra video software. 
 
@@ -93,7 +93,7 @@ What makes MentorHer unique is its combination of AI-driven matches, automated s
 
 #### Login
 
-![image](https://github.com/user-attachments/assets/a9d1b292-74f6-4ca6-bece-2068703a4662)
+![image](https://github.com/user-attachments/assets/996b9aad-8d6d-4075-a782-857a81b82618)
 
 #### Mentee Dashboard
 
