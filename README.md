@@ -6,6 +6,11 @@ Both mentors and mentees have personalized dashboards that are visually pleasant
 
 What makes MentorHer unique is its combination of AI-driven matches, automated scheduling, and real-time communication, all within a convenient platform. We use forefront technology, including Next.js for the user interface, Node.js and Firebase for the backend and MongoDB for data storage, ensuring that our platform is robust, secure and easy to navigate. MentorHer is more than just a platform, it's a movement aimed at empowering women in tech by providing the right mentorship, resources and networking opportunities. Through innovative, inclusive and efficient solutions, we strive to make a meaningful and lasting impact on the careers of women professionals around the world.
 
+### Screen Recording of our project  
+
+[![Watch the video](https://github.com/user-attachments/assets/1054b93e-a3a1-41b5-80f1-7e5c4bcc3146)](https://drive.google.com/file/d/1kUQZ_JMwqAvhpdqyblzi2mh6FM9H-aR2/view)
+
+
 ### Captures of our website 📸
 #### Here are some screenshots of the project:
 
