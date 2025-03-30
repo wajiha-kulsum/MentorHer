@@ -1,14 +1,26 @@
 ## MentorHer: Women in Tech Mentorship Platform
 
-MentorHer is a platform designed to connect women professionals with experienced industry mentors. Our goal is to provide a encouraging environment where women can make connections, receive guidance and upgrade in their careers through structured mentoring. Unlike other mentorship services, MentorHer uses AI technology to pair mentees with mentors who share similar career goals and skills they wish to develop. A key feature of MentorHer is its AI-driven matching system. This smart tool aligns mentees with the right mentors by looking at their skills, goals, and career paths. This approach helps mentees receive guidance that is specifically designed to cater their needs. We also offer an integrated scheduling tool that syncs with Google Calendar, allowing users to easily book their mentorship sessions without any timing conflicts, streamlining the whole process. For communication, MentorHer includes a built-in video calling feature using WebRTC. This enables real-time, direct conversations between mentors and mentees within the platform itself, ensuring a smooth and secure communication experience without needing any extra video software. 
+### Updated Youtube Video with no audio issues
+[![Watch the video](https://github.com/user-attachments/assets/1054b93e-a3a1-41b5-80f1-7e5c4bcc3146)](https://youtu.be/jioho7wfhWI?si=M0XLIIkMc6rDxmAV)
 
-Both mentors and mentees have personalized dashboards that are visually pleasant, with pastel colors like blue, purple and pink, creating a welcoming and easy-to-use space. These dashboards allow users to track their sessions, access mentorship resources, and manage their calendars effortlessly. Beyond one-on-one mentorship, MentorHer builds a community through its discussion forum. This space allows mentees to ask questions, share experiences and join group chats, promoting knowledge exchange and peer support. 
+MentorHer is a platform connecting women professionals with experienced industry mentors. Using AI-driven matching, it pairs mentees with mentors based on career goals, skills, and aspirations for personalized guidance.
 
-What makes MentorHer unique is its combination of AI-driven matches, automated scheduling, and real-time communication, all within a convenient platform. We use forefront technology, including Next.js for the user interface, Node.js and Firebase for the backend and MongoDB for data storage, ensuring that our platform is robust, secure and easy to navigate. MentorHer is more than just a platform, it's a movement aimed at empowering women in tech by providing the right mentorship, resources and networking opportunities. Through innovative, inclusive and efficient solutions, we strive to make a meaningful and lasting impact on the careers of women professionals around the world.
+Key features include:
+
+- AI-Powered Matching: Smart pairing based on goals and skillsets.
+
+- Integrated Scheduling: Syncs with Google Calendar for hassle-free session booking.
+
+- Built-in Video Calling (WebRTC) : Secure, real-time conversations using WebRTC.
+
+- Personalized Dashboards: User-friendly, pastel-themed interfaces for session tracking and resource management.
+
+- Community Forum: A space for discussions, knowledge-sharing, and peer support.
+
+- Built with Next.js, Node.js, Firebase, and MongoDB, MentorHer offers a secure, streamlined experience. Beyond mentorship, it fosters an inclusive, supportive environment, empowering women to advance in their careers and make lasting connections.
 
 ### Screen Recording of our project  
 
-[![Watch the video](https://github.com/user-attachments/assets/1054b93e-a3a1-41b5-80f1-7e5c4bcc3146)](https://drive.google.com/file/d/1kUQZ_JMwqAvhpdqyblzi2mh6FM9H-aR2/view)
 
 
 ### Captures of our website 📸
