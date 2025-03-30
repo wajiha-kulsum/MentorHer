@@ -19,7 +19,7 @@ Key features include:
 
 - Built with Next.js, Node.js, Firebase, and MongoDB, MentorHer offers a secure, streamlined experience. Beyond mentorship, it fosters an inclusive, supportive environment, empowering women to advance in their careers and make lasting connections.
 
-### Screen Recording of our project  
+### Demo video of the project  
 
 
 
