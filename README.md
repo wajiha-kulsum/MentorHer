@@ -10,13 +10,20 @@ What makes MentorHer unique is its combination of AI-driven matches, automated s
 #### Here are some screenshots of the project:
 
 ### Homepage  
-![image](https://github.com/user-attachments/assets/8a48068e-a3ad-4cdd-9158-a6ae21bb5e40)
 
-### Dashboard  
-![Dashboard](https://raw.githubusercontent.com/wajiha-kulsum/MentorHer/main/Screenshot%20(71).png)
+#### Hero page  
 
-### Profile Page  
-![Profile Page](https://raw.githubusercontent.com/wajiha-kulsum/MentorHer/main/Screenshot%20(72).png)
+![image](https://github.com/user-attachments/assets/0672114a-6332-45e0-8fde-763e6deb2b00)
 
-### Another View  
-![Another Screenshot](https://raw.githubusercontent.com/wajiha-kulsum/MentorHer/main/Screenshot%20(73).png)
+#### Events page  
+
+![image](https://github.com/user-attachments/assets/821bbc1d-add9-4849-abce-9393d430c801)
+
+#### FAQs page  
+
+![image](https://github.com/user-attachments/assets/0d7322c2-fcb7-4e2c-b163-adafd08deb19)
+
+#### Contact Us  
+
+![image](https://github.com/user-attachments/assets/ba318be2-dfb6-4e63-8b55-5c7e2fa13df5)
+
