@@ -273,7 +273,7 @@ const MentorDashboard = () => {
                 <Button 
                   variant="outline" 
                   className="w-full bg-white/95 text-gray-800 border hover:bg-gray-50/95 backdrop-blur-sm"
-                  onClick={() => router.push("/profile/1")}
+                  onClick={() => router.push("/profile/mentor")}
                 >
                   <Users className="mr-2 h-4 w-4" />
                   View Public Profile

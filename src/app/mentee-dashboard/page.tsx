@@ -123,13 +123,13 @@ const MenteeDashboard = () => {
             
             <div className="flex gap-3 w-full md:w-auto">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="w-full md:w-auto">
-                <Button className="w-full bg-white text-gray-800 border hover:bg-gray-50 backdrop-blur-sm">
+                <Button className="w-full bg-white text-gray-800 border hover:bg-gray-50 backdrop-blur-sm" onClick={() => router.push("/find-mentor")}>
                   Find Mentors
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="w-full md:w-auto">
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white backdrop-blur-sm">
-                  Browse Resources
+                <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white backdrop-blur-sm" onClick={() => router.push("/profile/mentee")}>
+                View Public Profile
                 </Button>
               </motion.div>
             </div>
