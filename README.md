@@ -8,9 +8,9 @@
 
 ---
 
-## MentorHer is a platform connecting women professionals with experienced industry mentors. Using AI-driven matching, it pairs mentees with mentors based on career goals, skills, and aspirations for personalized guidance.
+## Project Overview : MentorHer is a platform connecting women professionals with experienced industry mentors. Using AI-driven matching, it pairs mentees with mentors based on career goals, skills, and aspirations for personalized guidance. 
 
-Key features include:
+## Key features include:
 
 - AI-Powered Matching: Smart pairing based on goals and skillsets.
 
@@ -24,13 +24,12 @@ Key features include:
 
 - Built with Next.js, Node.js, Firebase, and MongoDB, MentorHer offers a secure, streamlined experience. Beyond mentorship, it fosters an inclusive, supportive environment, empowering women to advance in their careers and make lasting connections.
 
-### Demo video showcasing every feature of our project
+### Demo video showcasing every feature of our project: 
 
 [![Watch the video](https://github.com/user-attachments/assets/d90c066c-2650-4176-ae22-23e8e069d282)](https://github.com/user-attachments/assets/f03daf90-925d-404b-abf7-9cd0aab69adb)
 
 
-### Captures of our website 📸
-#### Here are some screenshots of the project:
+## Here are some screenshots of the project:
 
 ### Homepage  
 
