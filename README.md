@@ -3,12 +3,7 @@
 
 [![Watch the video](https://github.com/user-attachments/assets/1054b93e-a3a1-41b5-80f1-7e5c4bcc3146)](https://youtu.be/jioho7wfhWI?si=M0XLIIkMc6rDxmAV)
 
-## Deployed Link (UI & Below mentioned Functionality): https://mentorher-frontend.vercel.app/
-o	Entire working features can also be viewed in the above mentioned YT link and the below mentioned demo video.
-
-o	Features Like Ai powered mentor recommendation , Group Chat/ Community, Profiles of Both mentor and mentee, Dashboard of both mentor and mentee ,Ai Mentorship Chatbot, Real- Time Meet Scheduling, Event regeistration ,login Auth, etc can all be viewed in the above mentioned deployed link.
-
-o The only Feature that cannot be viewed in the deployed link due to vercel server issues consist, video call meet (but this feature can be viewed in the yt and github demo videos).
+## Project Deployed Link (Fully Functional): https://mentorher.vercel.app/ 
 
 ---
 
