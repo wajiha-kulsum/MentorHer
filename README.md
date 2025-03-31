@@ -28,6 +28,10 @@
 
 [![Watch the video](https://github.com/user-attachments/assets/d90c066c-2650-4176-ae22-23e8e069d282)](https://github.com/user-attachments/assets/f03daf90-925d-404b-abf7-9cd0aab69adb)
 
+### Business Plan of our project
+
+![business plan](https://github.com/user-attachments/assets/7568d5d8-b25c-47b6-aa4b-124671609a64)
+
 
 ## Here are some screenshots of the project:
 
