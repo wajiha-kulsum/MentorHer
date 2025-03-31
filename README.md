@@ -1,10 +1,17 @@
 ## MentorHer: Women in Tech Mentorship Platform
-## Deployed Link : https://mentorher-frontend.vercel.app/
 ### Updated Youtube Video with no audio issues  
 
 [![Watch the video](https://github.com/user-attachments/assets/1054b93e-a3a1-41b5-80f1-7e5c4bcc3146)](https://youtu.be/jioho7wfhWI?si=M0XLIIkMc6rDxmAV)
 
-MentorHer is a platform connecting women professionals with experienced industry mentors. Using AI-driven matching, it pairs mentees with mentors based on career goals, skills, and aspirations for personalized guidance.
+## Deployed Link (UI & Below mentioned Functionality): https://mentorher-frontend.vercel.app/
+o	Entire working features can be viewed in the above mentioned YT link and the below mentioned demo video.
+
+o	But Features Like Profiles of Both mentor and mentee, Dashboard of both mentor and mentee , Mentor Chatbot, Real- Time Scheduling, Event regeistration ,login Auth, etc can all be viewed in the above mentioned deployed link.
+
+o	Features that cannot be viewed due to vercel server issues consist, video call, group chat, community and Recommend mentors (but all of these features can be viewed in the yt video and above demo video).
+
+
+## MentorHer is a platform connecting women professionals with experienced industry mentors. Using AI-driven matching, it pairs mentees with mentors based on career goals, skills, and aspirations for personalized guidance.
 
 Key features include:
 
